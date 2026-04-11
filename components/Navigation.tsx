@@ -21,7 +21,7 @@ export default function Navigation() {
           <DecryptedText text="ZEROLOGON" /><span className="animate-blink">_</span>
         </a>
 
-        <ul className="hidden md:flex flex-1 justify-center gap-1 overflow-x-auto">
+        <ul className="hidden md:flex flex-1 justify-center gap-1">
           {navLinks.map((link) => (
             <li key={link.label}>
               <a

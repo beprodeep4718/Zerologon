@@ -1,7 +1,30 @@
 'use client';
+import { useState, useEffect } from 'react';
 import DecryptedText from "./animation/DecryptedText";
+import TextType from "./TextType";
+
+// Helper: ms to type a string
+const typeTime = (text: string, speed: number) => text.length * speed;
+
+const SPEED = 20;
+const DELAYS = {
+  whoamiCmd:   0,
+  whoamiRes:   typeTime("$ ./whoami.sh", SPEED) + 200,
+  statusCmd:   typeTime("$ ./whoami.sh", SPEED) + typeTime("zerologon_cell", SPEED) + 500,
+  statusLine1: typeTime("$ ./whoami.sh", SPEED) + typeTime("zerologon_cell", SPEED) + typeTime("$ ./status.sh", SPEED) + 700,
+  statusLine2: typeTime("$ ./whoami.sh", SPEED) + typeTime("zerologon_cell", SPEED) + typeTime("$ ./status.sh", SPEED) + typeTime("STATUS: ACTIVE ✓", SPEED) + 900,
+  statusLine3: typeTime("$ ./whoami.sh", SPEED) + typeTime("zerologon_cell", SPEED) + typeTime("$ ./status.sh", SPEED) + typeTime("STATUS: ACTIVE ✓", SPEED) + typeTime("MEMBERS: 8", SPEED) + 1100,
+  intelCmd:    typeTime("$ ./whoami.sh", SPEED) + typeTime("zerologon_cell", SPEED) + typeTime("$ ./status.sh", SPEED) + typeTime("STATUS: ACTIVE ✓", SPEED) + typeTime("MEMBERS: 8", SPEED) + typeTime("CTFS_WON: ∞", SPEED) + 1400,
+  intelRes:    typeTime("$ ./whoami.sh", SPEED) + typeTime("zerologon_cell", SPEED) + typeTime("$ ./status.sh", SPEED) + typeTime("STATUS: ACTIVE ✓", SPEED) + typeTime("MEMBERS: 8", SPEED) + typeTime("CTFS_WON: ∞", SPEED) + typeTime("$ ./intel.sh", SPEED) + 1600,
+};
 
 export default function Hero() {
+  const [started, setStarted] = useState(false);
+
+  useEffect(() => {
+    setStarted(true);
+  }, []);
+
   return (
     <section id="hero" className="min-h-screen bg-zerologon-black grid grid-cols-1 lg:grid-cols-2 relative overflow-hidden pt-16">
       <div className="hero-grid-bg"></div>
@@ -38,14 +61,137 @@ export default function Hero() {
             </div>
             <span>zerologon@cell:~#</span>
           </div>
+
           <div className="px-4 sm:px-6 py-6 font-share-tech text-sm leading-8 text-zerologon-green min-h-64 lg:min-h-80">
-            <div className="block text-gray-600">$ ./whoami.sh</div>
-            <div className="block">zerologon_cell</div>
-            <div className="block text-gray-600 mt-4">$ ./status.sh</div>
-            <div className="block">STATUS: <span className="text-zerologon-yellow">ACTIVE</span> ✓</div>
-            <div className="block">MEMBERS: <span className="text-zerologon-yellow">8</span></div>
-            <div className="block">CTFS_WON: <span className="text-zerologon-yellow">∞</span></div>
-            <div className="block mt-4 text-gray-600">$ _<span className="animate-blink">▌</span></div>
+
+            {/* $ ./whoami.sh */}
+            <div className="block text-gray-600">
+              {started && (
+                <TextType
+                  as="span"
+                  text="$ ./whoami.sh"
+                  typingSpeed={SPEED}
+                  initialDelay={DELAYS.whoamiCmd}
+                  pauseDuration={99999}
+                  showCursor={false}
+                  loop={false}
+                />
+              )}
+            </div>
+
+            {/* zerologon_cell */}
+            <div className="block">
+              {started && (
+                <TextType
+                  as="span"
+                  text="zerologon_cell"
+                  typingSpeed={SPEED}
+                  initialDelay={DELAYS.whoamiRes}
+                  pauseDuration={99999}
+                  showCursor={false}
+                  loop={false}
+                />
+              )}
+            </div>
+
+            {/* $ ./status.sh */}
+            <div className="block text-gray-600 mt-4">
+              {started && (
+                <TextType
+                  as="span"
+                  text="$ ./status.sh"
+                  typingSpeed={SPEED}
+                  initialDelay={DELAYS.statusCmd}
+                  pauseDuration={99999}
+                  showCursor={false}
+                  loop={false}
+                />
+              )}
+            </div>
+
+            {/* STATUS: ACTIVE ✓ */}
+            <div className="block">
+              {started && (
+                <TextType
+                  as="span"
+                  text="STATUS: ACTIVE ✓"
+                  typingSpeed={SPEED}
+                  initialDelay={DELAYS.statusLine1}
+                  pauseDuration={99999}
+                  showCursor={false}
+                  loop={false}
+                />
+              )}
+            </div>
+
+            {/* MEMBERS: 8 */}
+            <div className="block">
+              {started && (
+                <TextType
+                  as="span"
+                  text="MEMBERS: 8"
+                  typingSpeed={SPEED}
+                  initialDelay={DELAYS.statusLine2}
+                  pauseDuration={99999}
+                  showCursor={false}
+                  loop={false}
+                />
+              )}
+            </div>
+
+            {/* CTFS_WON: ∞ */}
+            <div className="block">
+              {started && (
+                <TextType
+                  as="span"
+                  text="CTFS_WON: ∞"
+                  typingSpeed={SPEED}
+                  initialDelay={DELAYS.statusLine3}
+                  pauseDuration={99999}
+                  showCursor={false}
+                  loop={false}
+                />
+              )}
+            </div>
+
+            {/* $ ./intel.sh */}
+            <div className="block text-gray-600 mt-4">
+              {started && (
+                <TextType
+                  as="span"
+                  text="$ ./intel.sh"
+                  typingSpeed={SPEED}
+                  initialDelay={DELAYS.intelCmd}
+                  pauseDuration={99999}
+                  showCursor={false}
+                  loop={false}
+                />
+              )}
+            </div>
+
+            {/* Cycling intel messages */}
+            <div className="block">
+              {started && (
+                <TextType
+                  as="span"
+                  text={[
+                    "Hacking is not a crime, it's a mindset.",
+                    "CTF season is always open.",
+                    "Recon. Exploit. Report. Repeat.",
+                    "We don't break things. We understand them.",
+                  ]}
+                  typingSpeed={60}
+                  deletingSpeed={35}
+                  initialDelay={DELAYS.intelRes}
+                  pauseDuration={1800}
+                  cursorCharacter="▌"
+                  cursorClassName="text-zerologon-yellow"
+                  showCursor
+                  loop
+                />
+              )}
+            </div>
+
           </div>
         </div>
       </div>
