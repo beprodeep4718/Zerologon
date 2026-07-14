@@ -1,0 +1,79 @@
+[
+  {
+    "initials": "AH",
+    "name": "Amrik Hore",
+    "role": "Secretary",
+    "skills": ["ECE'27"],
+    "image": "/members/amrik_hore.jpeg"
+  },
+  {
+    "initials": "SG",
+    "name": "Sharthak Ghosh",
+    "role": "Asst. Secretary",
+    "skills": ["EE'27"],
+    "image": "/members/sharthak_ghosh.jpeg"
+  },
+  {
+    "initials": "SHA",
+    "name": "Sayed Hossain Ansari",
+    "role": "Treasurer",
+    "skills": ["CSE'27"],
+    "image": "/members/sayed_hossain_ansari.jpeg"
+  },
+  {
+    "initials": "AS",
+    "name": "Agniva Shee",
+    "role": "Social Media Lead",
+    "skills": ["EE'27"],
+    "image": "/members/agniva_shee.jpeg"
+  },
+  {
+    "initials": "TP",
+    "name": "Tiyasa Patra",
+    "role": "Asst. Social Media Lead",
+    "skills": ["CSE'28"],
+    "image": "/members/tiyasa_patra.jpeg"
+  },
+  {
+    "initials": "SD",
+    "name": "Suranjana Das",
+    "role": "Asst. Social Media Lead",
+    "skills": ["ECE'28"],
+    "image": "/members/suranjana_das.jpeg"
+  },
+  {
+    "initials": "DR",
+    "name": "Dharitri Roy",
+    "role": "Outreach & PR Lead",
+    "skills": ["IT'27"],
+    "image": "/members/dharitri_roy.jpeg"
+  },
+  {
+    "initials": "SDy",
+    "name": "Sounak Dey",
+    "role": "Asst. PR Lead",
+    "skills": ["IT'28"],
+    "image": "/members/sounak_dey.jpeg"
+  },
+  {
+    "initials": "AD",
+    "name": "Aryaneel Das",
+    "role": "CTF Lead",
+    "skills": ["ECE'28"],
+    "image": "/members/aryaneel_das.jpeg"
+  },
+  {
+    "initials": "SGh",
+    "name": "Sagnik Ghosh",
+    "role": "CTF Lead",
+    "skills": ["CSE'28"],
+    "image": "/members/sagnik_ghosh.jpeg"
+  },
+  {
+    "initials": "BD",
+    "name": "Biprodeep Das",
+    "role": "Web Team",
+    "skills": ["ECE'27"],
+    "image": "/members/biprodeep_das.jpeg"
+  }
+]
