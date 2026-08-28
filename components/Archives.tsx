@@ -1,6 +1,6 @@
 import archives from "@/data/archives.json";
 
-const typeStyles = {
+const typeStyles: Record<string, { bg: string; color: string }> = {
   ctf: { bg: '#FF2D00', color: 'white' },
   workshop: { bg: '#FFB000', color: '#0a0a0a' },
   talk: { bg: '#00D9C0', color: '#0a0a0a' },
