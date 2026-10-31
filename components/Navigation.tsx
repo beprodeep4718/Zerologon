@@ -44,11 +44,6 @@ export default function Navigation() {
         >
           {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
         </button>
-
-        <div className="hidden lg:flex font-share-tech text-xs text-zerologon-green items-center gap-2 shrink-0">
-          <span className="w-2 h-2 bg-zerologon-green rounded-full animate-pulse"></span>
-          SYSTEMS ONLINE
-        </div>
       </nav>
 
       {isMenuOpen && (

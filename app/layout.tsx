@@ -7,7 +7,7 @@ const inter = Inter({subsets:['latin'],variable:'--font-sans'});
 
 export const metadata: Metadata = {
   title: "ZEROLOGON — Cybersecurity Cell",
-  description: "ZEROLOGON is the official cybersecurity cell - a collective of hackers, defenders, and researchers pushing the boundaries of cybersecurity.",
+  description: "ZEROLOGON is the official cybersecurity cell - a student group of hackers, defenders, and researchers.",
 };
 
 export default function RootLayout({

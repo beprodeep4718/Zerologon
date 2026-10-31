@@ -1,4 +1,18 @@
+"use client";
+import { useRef, useState } from "react";
 import archives from "@/data/archives.json";
+
+const LATEST_COUNT = 3;
+const MONTHS = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+
+// Newest first. Entries with only an academic year ("2024-25") have no exact
+// date, so they sort as the start of the year it ends in, below dated events
+// from that year.
+function sortKey({ date, day, year }: { date: string; day: string; year: string }) {
+  const [startYear, endYear] = year.split("-");
+  const fullYear = endYear ? Number(startYear.slice(0, 2) + endYear) : Number(startYear);
+  return fullYear * 10000 + (MONTHS.indexOf(date) + 1) * 100 + Number(day || 0);
+}
 
 const typeStyles: Record<string, { bg: string; color: string }> = {
   ctf: { bg: '#FF2D00', color: 'white' },
@@ -8,7 +22,19 @@ const typeStyles: Record<string, { bg: string; color: string }> = {
 
 export default function Archives() {
   const featured = archives.find((a) => a.featured);
-  const rest = archives.filter((a) => !a.featured);
+  const rest = archives
+    .filter((a) => !a.featured)
+    .sort((a, b) => sortKey(b) - sortKey(a));
+
+  const [showAll, setShowAll] = useState(false);
+  const listRef = useRef<HTMLDivElement>(null);
+  const visible = showAll ? rest : rest.slice(0, LATEST_COUNT);
+
+  const toggle = () => {
+    // Collapsing removes the rows above the button, so bring the list back into view.
+    if (showAll) listRef.current?.scrollIntoView({ block: "center" });
+    setShowAll(!showAll);
+  };
 
   return (
     <section
@@ -82,8 +108,8 @@ export default function Archives() {
       )}
 
       {/* Regular Archive List */}
-      <div className="border-4 border-zerologon-black shadow-zerologon-lg">
-        {rest.map((archive, i) => {
+      <div id="archive-list" ref={listRef} className="border-4 border-zerologon-black shadow-zerologon-lg scroll-mt-32">
+        {visible.map((archive, i) => {
           const style = typeStyles[archive.type] ?? typeStyles.ctf;
           const hasDay = Boolean(archive.date || archive.day);
           return (
@@ -142,6 +168,20 @@ export default function Archives() {
           );
         })}
       </div>
+
+      {rest.length > LATEST_COUNT && (
+        <div className="mt-8 sm:mt-10 text-center">
+          <button
+            type="button"
+            onClick={toggle}
+            aria-expanded={showAll}
+            aria-controls="archive-list"
+            className="btn btn-primary"
+          >
+            {showAll ? "Show latest" : `View all (${rest.length})`}
+          </button>
+        </div>
+      )}
     </section>
   );
 }

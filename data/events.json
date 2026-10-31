@@ -1,31 +1,5 @@
 {
-  "featuredEvent": {
-    "date": "APR 15",
-    "title": "INCTF 2026",
-    "description": "India's biggest cybersecurity CTF. 48 hours of intense competition featuring reverse engineering, pwning, web exploitation, and cryptanalysis challenges. Register your team now!",
-    "dateRange": "April 15-17, 2026",
-    "location": "Online",
-    "badge": "FEATURED",
-    "cta": "Register Team"
-  },
-  "events": [
-    {
-      "date": "MAR 30",
-      "title": "Web Security Workshop",
-      "desc": "Deep dive into OWASP Top 10 and real-world exploitation techniques.",
-      "badge": "WORKSHOP"
-    },
-    {
-      "date": "APR 05",
-      "title": "Malware Analysis Bootcamp",
-      "desc": "3-day intensive program covering static and dynamic analysis methods.",
-      "badge": "TRAINING"
-    },
-    {
-      "date": "APR 20",
-      "title": "Hardware CTF Challenge",
-      "desc": "IoT exploitation and embedded systems security challenges.",
-      "badge": "COMPETITION"
-    }
-  ]
+  "title": "Slay CTF 2026",
+  "subtitle": "Cybersecurity Conference",
+  "badge": "Upcoming"
 }

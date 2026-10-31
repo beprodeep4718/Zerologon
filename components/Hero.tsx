@@ -8,14 +8,10 @@ const typeTime = (text: string, speed: number) => text.length * speed;
 
 const SPEED = 20;
 const DELAYS = {
-  whoamiCmd:   0,
-  whoamiRes:   typeTime("$ ./whoami.sh", SPEED) + 200,
-  statusCmd:   typeTime("$ ./whoami.sh", SPEED) + typeTime("zerologon_cell", SPEED) + 500,
-  statusLine1: typeTime("$ ./whoami.sh", SPEED) + typeTime("zerologon_cell", SPEED) + typeTime("$ ./status.sh", SPEED) + 700,
-  statusLine2: typeTime("$ ./whoami.sh", SPEED) + typeTime("zerologon_cell", SPEED) + typeTime("$ ./status.sh", SPEED) + typeTime("STATUS: ACTIVE ✓", SPEED) + 900,
-  statusLine3: typeTime("$ ./whoami.sh", SPEED) + typeTime("zerologon_cell", SPEED) + typeTime("$ ./status.sh", SPEED) + typeTime("STATUS: ACTIVE ✓", SPEED) + typeTime("MEMBERS: 8", SPEED) + 1100,
-  intelCmd:    typeTime("$ ./whoami.sh", SPEED) + typeTime("zerologon_cell", SPEED) + typeTime("$ ./status.sh", SPEED) + typeTime("STATUS: ACTIVE ✓", SPEED) + typeTime("MEMBERS: 8", SPEED) + typeTime("CTFS_WON: ∞", SPEED) + 1400,
-  intelRes:    typeTime("$ ./whoami.sh", SPEED) + typeTime("zerologon_cell", SPEED) + typeTime("$ ./status.sh", SPEED) + typeTime("STATUS: ACTIVE ✓", SPEED) + typeTime("MEMBERS: 8", SPEED) + typeTime("CTFS_WON: ∞", SPEED) + typeTime("$ ./intel.sh", SPEED) + 1600,
+  whoamiCmd: 0,
+  whoamiRes: typeTime("$ ./whoami.sh", SPEED) + 200,
+  intelCmd:  typeTime("$ ./whoami.sh", SPEED) + typeTime("zerologon_cell", SPEED) + 500,
+  intelRes:  typeTime("$ ./whoami.sh", SPEED) + typeTime("zerologon_cell", SPEED) + typeTime("$ ./intel.sh", SPEED) + 700,
 };
 
 export default function Hero() {
@@ -33,7 +29,7 @@ export default function Hero() {
       <div className="relative z-10 flex flex-col justify-center px-6 sm:px-10 lg:px-16 py-16 sm:py-20">
         <div className="font-share-tech text-xs text-zerologon-green tracking-[0.3em] uppercase mb-6 flex items-center gap-2">
           <span className="text-zerologon-red">{'>'}</span>
-          CYBERSECURITY CELL // ACTIVE
+          CYBERSECURITY CELL
         </div>
         <h1 className="font-bebas text-7xl sm:text-8xl lg:text-9xl leading-none text-zerologon-white mb-8">
           <DecryptedText animateOn="inViewHover" text="ZERO" /><span className="animate-blink">_</span>
@@ -42,7 +38,7 @@ export default function Hero() {
           </span>
         </h1>
         <p className="text-sm text-gray-500 max-w-sm leading-relaxed border-l-4 border-zerologon-red pl-4 mb-8">
-          We break things to understand them. A collective of hackers, defenders, and researchers pushing the boundaries of cybersecurity.
+          We break things to understand them. A student group of hackers, defenders, and researchers.
         </p>
         <div className="flex gap-4 flex-wrap">
           <a href="#upcoming" className="btn btn-primary">Upcoming Events</a>
@@ -62,7 +58,7 @@ export default function Hero() {
             <span>zerologon@cell:~#</span>
           </div>
 
-          <div className="px-4 sm:px-6 py-6 font-share-tech text-sm leading-8 text-zerologon-green min-h-64 lg:min-h-80">
+          <div className="px-4 sm:px-6 py-6 font-share-tech text-sm leading-8 text-zerologon-green min-h-48">
 
             {/* $ ./whoami.sh */}
             <div className="block text-gray-600">
@@ -94,66 +90,6 @@ export default function Hero() {
               )}
             </div>
 
-            {/* $ ./status.sh */}
-            <div className="block text-gray-600 mt-4">
-              {started && (
-                <TextType
-                  as="span"
-                  text="$ ./status.sh"
-                  typingSpeed={SPEED}
-                  initialDelay={DELAYS.statusCmd}
-                  pauseDuration={99999}
-                  showCursor={false}
-                  loop={false}
-                />
-              )}
-            </div>
-
-            {/* STATUS: ACTIVE ✓ */}
-            <div className="block">
-              {started && (
-                <TextType
-                  as="span"
-                  text="STATUS: ACTIVE ✓"
-                  typingSpeed={SPEED}
-                  initialDelay={DELAYS.statusLine1}
-                  pauseDuration={99999}
-                  showCursor={false}
-                  loop={false}
-                />
-              )}
-            </div>
-
-            {/* MEMBERS: 8 */}
-            <div className="block">
-              {started && (
-                <TextType
-                  as="span"
-                  text="MEMBERS: 8"
-                  typingSpeed={SPEED}
-                  initialDelay={DELAYS.statusLine2}
-                  pauseDuration={99999}
-                  showCursor={false}
-                  loop={false}
-                />
-              )}
-            </div>
-
-            {/* CTFS_WON: ∞ */}
-            <div className="block">
-              {started && (
-                <TextType
-                  as="span"
-                  text="CTFS_WON: ∞"
-                  typingSpeed={SPEED}
-                  initialDelay={DELAYS.statusLine3}
-                  pauseDuration={99999}
-                  showCursor={false}
-                  loop={false}
-                />
-              )}
-            </div>
-
             {/* $ ./intel.sh */}
             <div className="block text-gray-600 mt-4">
               {started && (
@@ -175,10 +111,8 @@ export default function Hero() {
                 <TextType
                   as="span"
                   text={[
-                    "Hacking is not a crime, it's a mindset.",
                     "CTF season is always open.",
                     "Recon. Exploit. Report. Repeat.",
-                    "We don't break things. We understand them.",
                   ]}
                   typingSpeed={60}
                   deletingSpeed={35}

@@ -15,7 +15,7 @@ export default function Footer() {
           <p className="font-share-tech text-xs text-gray-600 leading-relaxed max-w-xs">
             Cybersecurity Cell<br />
             Department of Computer Science<br />
-            Est. 2022 — Breaking things since day one.
+            Est. 2022
           </p>
         </div>
         <div>

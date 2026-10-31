@@ -1,8 +1,6 @@
-import eventsData from "@/data/events.json";
+import event from "@/data/events.json";
 
 export default function UpcomingEvents() {
-  const { featuredEvent, events } = eventsData;
-
   return (
     <section
       id="upcoming"
@@ -25,67 +23,20 @@ export default function UpcomingEvents() {
         <div className="hidden sm:block flex-1 h-1 bg-zerologon-black ml-4"></div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 relative z-10">
-        {/* Featured Event */}
-        <div className="lg:col-span-2 bg-zerologon-black text-zerologon-white border-4 border-zerologon-black shadow-zerologon transition-all hover:-translate-x-1 hover:-translate-y-1 hover:shadow-zerologon-lg overflow-hidden">
-          <div className="bg-zerologon-red px-4 py-3 sm:px-5 sm:py-4 flex justify-between items-center gap-3">
-            <span className="font-share-tech text-xs text-zerologon-white uppercase tracking-[0.2em] border-2 border-zerologon-white px-2 py-1">
-              {featuredEvent.badge}
-            </span>
-            <span className="font-bebas text-xl sm:text-2xl text-zerologon-black tracking-[0.05em]">
-              {featuredEvent.date}
-            </span>
-          </div>
-          <div className="px-4 py-5 sm:px-5 sm:py-6">
-            <h3 className="font-bebas text-3xl sm:text-4xl tracking-[0.05em] mb-3 leading-tight">
-              {featuredEvent.title}
-            </h3>
-            <p className="text-sm sm:text-base leading-relaxed text-gray-300 mb-6">
-              {featuredEvent.description}
-            </p>
-            <div className="flex gap-3 sm:gap-6 mb-6 flex-wrap">
-              <div className="font-share-tech text-xs uppercase tracking-widest text-gray-400">
-                <span className="text-zerologon-red">{`// `}</span>
-                {featuredEvent.dateRange}
-              </div>
-              <div className="font-share-tech text-xs uppercase tracking-widest text-gray-400">
-                <span className="text-zerologon-red">{`// `}</span>
-                {featuredEvent.location}
-              </div>
-            </div>
-            <button className="btn bg-zerologon-yellow text-zerologon-black font-bold uppercase tracking-widest">
-              {featuredEvent.cta}
-            </button>
-          </div>
+      <div className="relative z-10 bg-zerologon-black text-zerologon-white border-4 border-zerologon-black shadow-zerologon transition-all hover:-translate-x-1 hover:-translate-y-1 hover:shadow-zerologon-lg overflow-hidden">
+        <div className="bg-zerologon-red px-4 py-3 sm:px-5 sm:py-4">
+          <span className="font-share-tech text-xs text-zerologon-white uppercase tracking-[0.2em] border-2 border-zerologon-white px-2 py-1">
+            {event.badge}
+          </span>
         </div>
-
-        {/* Regular Events */}
-        {events.map((event, i) => (
-          <div
-            key={i}
-            className="bg-zerologon-white border-4 border-zerologon-black shadow-zerologon transition-all hover:-translate-x-1 hover:-translate-y-1 hover:shadow-zerologon-lg"
-          >
-            <div className="bg-zerologon-black px-4 py-3 sm:px-5 flex justify-between items-center gap-2">
-              <span className="font-share-tech text-xs text-zerologon-yellow uppercase tracking-widest border-2 border-zerologon-yellow px-2 py-1">
-                {event.badge}
-              </span>
-              <span className="font-bebas text-lg text-zerologon-white tracking-widest">
-                {event.date}
-              </span>
-            </div>
-            <div className="px-4 py-5 sm:px-5 sm:py-6">
-              <h3 className="font-bebas text-xl sm:text-2xl tracking-widest mb-3 leading-tight">
-                {event.title}
-              </h3>
-              <p className="text-sm sm:text-base leading-relaxed text-gray-600 mb-6">
-                {event.desc}
-              </p>
-              <div className="font-share-tech text-xs uppercase tracking-widest text-gray-500">
-                <span className="text-zerologon-red">{`// `}</span>Learn More →
-              </div>
-            </div>
-          </div>
-        ))}
+        <div className="px-4 py-8 sm:px-6 sm:py-10">
+          <h3 className="font-bebas text-5xl sm:text-7xl tracking-[0.05em] leading-none mb-3">
+            {event.title}
+          </h3>
+          <p className="font-bebas text-2xl sm:text-3xl tracking-[0.05em] leading-tight text-zerologon-yellow">
+            {event.subtitle}
+          </p>
+        </div>
       </div>
     </section>
   );
