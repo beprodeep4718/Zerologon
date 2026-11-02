@@ -60,10 +60,10 @@ void main() {
   gl_FragColor = vec4(tone, 1.0);
 }`;
 
-function textureUrl(src: string) {
-  if (src.startsWith('http')) return `${src}${src.includes('?') ? '&' : '?'}w=1920&q=75&auto=format`;
-  return `/_next/image?url=${encodeURIComponent(src)}&w=1920&q=75`;
-}
+// WebGL can only read same-origin or CORS-approved images, and Sanity's CDN refuses CORS requests
+// from sites that aren't on the project's allow-list. Going through our own image route means
+// this works on every domain, including Vercel previews, with nothing to configure.
+const textureUrl = (src: string) => `/_next/image?url=${encodeURIComponent(src)}&w=1920&q=75`;
 
 function compile(gl: WebGLRenderingContext, type: number, source: string) {
   const shader = gl.createShader(type)!;

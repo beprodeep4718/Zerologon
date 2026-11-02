@@ -13,7 +13,7 @@ The site is at http://localhost:3000. Without a Sanity project ID it uses the fi
 
 ## Update the content
 
-Editors don't need any of this code. Sign in to the Studio, change something, and press Publish. It's live on the next page reload.
+Editors don't need any of this code. Sign in at [zerologon.sanity.studio](https://zerologon.sanity.studio), change something, and press Publish. It's live within a few seconds.
 
 | To change | Go to |
 | --- | --- |
@@ -60,7 +60,11 @@ If you change the schema files in `studio/schemaTypes`, run `npx sanity deploy` 
 
 - `lib/content/` is the only code that knows where content comes from. `local.ts` reads `data/`, `sanity.ts` reads Sanity, and setting `NEXT_PUBLIC_SANITY_PROJECT_ID` switches between them.
 - `studio/` is the editor. It's a separate project with its own dependencies, so it stays out of the public site.
-- `app/api/revalidate` receives Sanity's signed webhook on each publish and refreshes the page. Pages also refresh hourly, which moves past events and covers any missed webhook.
+- `app/api/revalidate` receives Sanity's signed webhook on each publish and rebuilds the page. The old page keeps being served until the new one is ready, so a Sanity outage can't take the site down. Pages also refresh hourly, which moves past events and covers any missed webhook.
+
+## Troubleshooting
+
+If the site shows `unable to verify the first certificate`, antivirus software is scanning HTTPS traffic. Avast does this. Run Next with `node --use-system-ca` so Node trusts the Windows certificate store. It only affects your own computer, not Vercel.
 
 ## Yearly handover
 

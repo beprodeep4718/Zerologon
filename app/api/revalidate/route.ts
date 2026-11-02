@@ -1,4 +1,5 @@
 import { revalidateTag } from 'next/cache';
+import { after } from 'next/server';
 import { isValidSignature, SIGNATURE_HEADER_NAME } from '@sanity/webhook';
 import { CONTENT_TAG } from '@/lib/content/sanity';
 
@@ -21,8 +22,13 @@ export async function POST(request: Request) {
     return Response.json({ message: 'Invalid signature' }, { status: 401 });
   }
 
-  // Expire now: with the default 'max' profile the next visitor still gets the old page,
-  // so an editor reloading to check their change would think publishing had failed.
-  revalidateTag(CONTENT_TAG, { expire: 0 });
+  // Marks the page as stale but keeps serving it until a new one is built. Expiring it outright
+  // would turn the site into an error page if Sanity couldn't be reached during the rebuild.
+  revalidateTag(CONTENT_TAG, 'max');
+
+  // The first visit to a stale page gets the old copy and starts the rebuild. Make that visit
+  // here, so an editor who reloads to check their change sees the new page.
+  after(() => fetch(new URL('/', request.url)).catch(() => undefined));
+
   return Response.json({ revalidated: true });
 }
