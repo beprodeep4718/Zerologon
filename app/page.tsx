@@ -1,19 +1,15 @@
-import Navigation from '@/components/Navigation';
-import Hero from '@/components/Hero';
-import Manifesto from '@/components/Manifesto';
-import Crash from '@/components/Crash';
-import UpcomingEvents from '@/components/UpcomingEvents';
-import Archives from '@/components/Archives';
-import Members from '@/components/Members';
-import Gallery from '@/components/Gallery';
-import Join, { joinHref } from '@/components/Join';
-import Footer from '@/components/Footer';
+import Contact from '@/components/sections/Contact';
+import Events from '@/components/sections/Events';
+import Evidence from '@/components/sections/Evidence';
+import Scope from '@/components/sections/Scope';
+import Summary from '@/components/sections/Summary';
+import Team from '@/components/sections/Team';
 import { getEvents, getGallery, getMembers, getSite } from '@/lib/content';
 
 // Rebuild hourly so events move from upcoming to past once their date goes by.
 export const revalidate = 3600;
 
-export default async function Home() {
+export default async function Report() {
   const [site, { upcoming, past }, members, photos] = await Promise.all([
     getSite(),
     getEvents(),
@@ -21,34 +17,20 @@ export default async function Home() {
     getGallery(),
   ]);
 
-  const stats = [
-    { value: String(past.length), label: 'events run' },
-    { value: String(members.length), label: 'core members' },
-    { value: site.peakParticipants, label: 'at a single CTF' },
-  ];
-
-  const nav = [
-    { label: 'About', href: '#about' },
-    { label: 'Events', href: upcoming.length > 0 ? '#upcoming' : '#events' },
-    { label: 'Team', href: '#team' },
-    { label: 'Gallery', href: '#gallery' },
-    ...(joinHref(site) ? [{ label: 'Join', href: '#join' }] : []),
-  ];
-
   return (
     <>
-      <Navigation nav={nav} nextEvent={upcoming[0]} />
-      <main id="main">
-        <Hero site={site} nextEvent={upcoming[0]} stats={stats} />
-        <Manifesto site={site} />
-        <Crash nameOrigin={site.hero.nameOrigin} />
-        <UpcomingEvents events={upcoming} />
-        <Archives events={past} photos={photos} />
-        <Members members={members} />
-        <Gallery photos={photos} />
-        <Join site={site} />
-      </main>
-      <Footer site={site} nav={nav} />
+      <Summary
+        site={site}
+        next={upcoming[0]}
+        featured={past.find((event) => event.featured)}
+        closedCount={past.length}
+        memberCount={members.length}
+      />
+      <Scope site={site} />
+      <Events upcoming={upcoming} past={past} />
+      <Team members={members} />
+      <Evidence photos={photos} />
+      <Contact site={site} />
     </>
   );
 }

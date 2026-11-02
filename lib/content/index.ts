@@ -34,18 +34,18 @@ export async function getSite(): Promise<Site> {
 // An event moves from upcoming to past on its own once its date has gone by.
 export async function getEvents(): Promise<{ upcoming: ClubEvent[]; past: ClubEvent[] }> {
   const today = new Date().toISOString().slice(0, 10);
-  const events = (await loadEvents()).map((event) => ({
-    ...event,
-    links: event.links.filter((link) => link.url),
-  }));
+  const events = (await loadEvents())
+    .map((event) => ({ ...event, links: event.links.filter((link) => link.url) }))
+    .sort((a, b) => sortKey(a) - sortKey(b));
+
+  const oldestFirst = [
+    ...events.filter((event) => !isUpcoming(event, today)),
+    ...events.filter((event) => isUpcoming(event, today)),
+  ].map((event, i) => ({ ...event, ref: `ZL-${String(i + 1).padStart(3, '0')}` }));
 
   return {
-    upcoming: events
-      .filter((event) => isUpcoming(event, today))
-      .sort((a, b) => sortKey(a) - sortKey(b)),
-    past: events
-      .filter((event) => !isUpcoming(event, today))
-      .sort((a, b) => sortKey(b) - sortKey(a)),
+    upcoming: oldestFirst.filter((event) => isUpcoming(event, today)),
+    past: oldestFirst.filter((event) => !isUpcoming(event, today)).reverse(),
   };
 }
 

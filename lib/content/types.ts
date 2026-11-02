@@ -8,6 +8,8 @@ export type Photo = { src: string; alt: string; position?: string };
 
 export type ClubEvent = {
   id: string;
+  // Log number such as "ZL-015", counted from the oldest event.
+  ref?: string;
   title: string;
   subtitle?: string;
   type: EventType;
@@ -20,6 +22,8 @@ export type ClubEvent = {
   summary?: string;
   organisers?: string;
   description?: string;
+  challenges?: string;
+  lessons?: string;
   stats?: EventStat[];
   links: EventLink[];
   featured?: boolean;
@@ -64,5 +68,3 @@ export type Site = {
   email: string;
   socials: SocialLink[];
 };
-
-export type NavLink = { label: string; href: string };

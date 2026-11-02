@@ -123,21 +123,33 @@ export const event = defineType({
     defineField({
       name: 'featured',
       type: 'boolean',
-      description: 'Shows this event large at the top of past events. The newest featured event wins.',
+      description: 'Links this case study from the Summary page. The newest featured event wins.',
       initialValue: false,
     }),
     defineField({
       name: 'description',
       type: 'text',
       rows: 3,
-      description: 'Only shown on the featured event.',
-      hidden: ({ document }) => !document?.featured,
+      description: 'The summary at the top of the case study.',
+    }),
+    defineField({
+      name: 'challenges',
+      title: 'Challenge breakdown',
+      type: 'text',
+      rows: 5,
+      description: 'Categories, the hardest challenge, how the winners solved it. Hidden if empty.',
+    }),
+    defineField({
+      name: 'lessons',
+      title: 'Lessons learned',
+      type: 'text',
+      rows: 5,
+      description: 'What worked, what broke, what changes next time. Hidden if empty.',
     }),
     defineField({
       name: 'stats',
       type: 'array',
-      description: 'Only shown on the featured event.',
-      hidden: ({ document }) => !document?.featured,
+      description: 'The results figures on the case study.',
       of: [
         defineArrayMember({
           type: 'object',
@@ -161,7 +173,7 @@ export const event = defineType({
     defineField({
       name: 'photo',
       type: 'photo',
-      description: 'Appears when someone hovers over this event. Without one, a gallery photo is used.',
+      description: 'The large photo on the case study.',
     }),
   ],
   preview: {

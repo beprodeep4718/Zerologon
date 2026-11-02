@@ -6,6 +6,10 @@ export const EVENT_TYPE_LABELS: Record<EventType, string> = {
   talk: 'Talk',
 };
 
+// The head count inside a summary such as "300+ participants, 30+ teams".
+export const peopleCount = ({ summary }: ClubEvent) =>
+  summary?.match(/(\d+\+?)\s+(participants|attendees)/)?.[1] ?? '';
+
 const monthFormat = new Intl.DateTimeFormat('en-US', { month: 'short', timeZone: 'UTC' });
 
 export function formatEventDate({ date, datePrecision, academicYear, dateToBeAnnounced }: ClubEvent) {

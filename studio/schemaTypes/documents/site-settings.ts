@@ -74,7 +74,7 @@ export const siteSettings = defineType({
           title: 'Where our name comes from',
           type: 'text',
           rows: 2,
-          description: 'Shown on the blue crash screen.',
+          description: 'Shown above the advisory on the Scope page.',
           validation: (rule) => rule.required(),
         }),
       ],
@@ -100,7 +100,7 @@ export const siteSettings = defineType({
         defineField({
           name: 'photo',
           type: 'photo',
-          description: 'The full-screen team photo at the top of the homepage.',
+          description: 'The wide team photo on the Scope page.',
           validation: (rule) => rule.required(),
         }),
       ],

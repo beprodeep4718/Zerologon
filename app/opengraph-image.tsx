@@ -17,15 +17,15 @@ export default async function OpengraphImage() {
         flexDirection: 'column',
         justifyContent: 'space-between',
         padding: 64,
-        background: '#1322ff',
-        color: '#ffffff',
+        background: '#0a0a0a',
+        color: '#e9e9e7',
       }}
     >
-      <div style={{ fontSize: 220, lineHeight: 0.85 }}>:(</div>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-        <div style={{ fontSize: 64, lineHeight: 1.05 }}>{site.hero.headline}</div>
-        <div style={{ fontSize: 28 }}>Stop code: CVE_2020_1472</div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 26, color: '#9a9a9a' }}>
+        <span>{site.name}</span>
+        <span>TLP:CLEAR</span>
       </div>
+      <div style={{ fontSize: 88, lineHeight: 1.02, maxWidth: 900 }}>{site.hero.headline}</div>
     </div>,
     size,
   );

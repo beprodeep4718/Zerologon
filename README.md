@@ -19,6 +19,7 @@ Editors don't need any of this code. Sign in at [zerologon.sanity.studio](https:
 | --- | --- |
 | Add an event | Events |
 | Move an event to past events | Nothing: it moves by itself once its date has passed |
+| Write a case study | Events, then fill in Challenge breakdown and Lessons learned. It appears when someone expands that event |
 | Update members | Core team (drag to reorder) |
 | Add photos | Gallery (drop several at once) |
 | Change homepage text, email or social links | Site settings |

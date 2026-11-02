@@ -1,7 +1,6 @@
 import type { NextConfig } from "next";
 
 const isDev = process.env.NODE_ENV === "development";
-const sanityProjectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
 
 // The page is prerendered, so there's no per-request nonce and inline scripts stay allowed.
 const contentSecurityPolicy = [
@@ -26,13 +25,6 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
-  images: {
-    // Only for the hero's WebGL texture. Limited to our project so nobody else's Sanity images
-    // can use up the site's image quota.
-    remotePatterns: sanityProjectId
-      ? [{ protocol: "https", hostname: "cdn.sanity.io", pathname: `/images/${sanityProjectId}/**` }]
-      : [],
-  },
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },

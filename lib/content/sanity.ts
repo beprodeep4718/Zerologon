@@ -67,7 +67,7 @@ export async function loadEvents(): Promise<ClubEvent[]> {
     "datePrecision": select(timing == "month" => "month", "day"),
     "academicYear": select(timing == "academicYear" => academicYear),
     "dateToBeAnnounced": timing == "toBeAnnounced",
-    summary, organisers, description, stats[]{label, value}, featured, photo,
+    summary, organisers, description, challenges, lessons, stats[]{label, value}, featured, photo,
     "links": coalesce(links[]{label, url}, [])
   }`);
 

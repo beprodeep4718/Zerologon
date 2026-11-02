@@ -1,159 +1,188 @@
 @import "tailwindcss";
 
-@theme {
-  --color-void: #000000;
-  --color-crash: #1322ff;
-  --color-paper: #ffffff;
+@theme inline {
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-rule: var(--rule);
 
-  /* Secondary text and hairlines on black, then the same roles on white. */
-  --color-haze: #a2a2a8;
-  --color-ash: #77777d;
-  --color-line: #2c2c31;
-  --color-smoke: #55555b;
-  --color-rule: #dcdcde;
+  --font-sans: var(--font-funnel), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }
 
-@theme inline {
-  --font-sans: var(--font-hanken), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+:root {
+  --bg: #f1f1ee;
+  --fg: #0f0f0f;
+  --muted: #595959;
+  --rule: #cbcbc7;
+}
+
+:root[data-theme="dark"] {
+  --bg: #0a0a0a;
+  --fg: #e9e9e7;
+  --muted: #9a9a9a;
+  --rule: #2c2c2c;
+  color-scheme: dark;
 }
 
 @layer base {
   html {
-    color-scheme: dark;
+    scroll-padding-top: 76px;
+    interpolate-size: allow-keywords;
     overflow-wrap: break-word;
-    @apply bg-void font-sans text-paper antialiased;
+    @apply bg-bg font-sans font-light text-fg antialiased;
+    transition:
+      background-color 0.4s,
+      color 0.4s;
   }
 
-  html.lenis,
-  html.lenis body {
-    height: auto;
-  }
-
-  .lenis.lenis-smooth {
-    scroll-behavior: auto !important;
-  }
-
-  a,
-  button {
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: rgb(19 34 255 / 0.3);
+  ::selection {
+    @apply bg-fg text-bg;
   }
 
   button {
     cursor: pointer;
   }
 
-  ::selection {
-    @apply bg-crash text-paper;
+  a,
+  button {
+    touch-action: manipulation;
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-paper);
+    outline: 1px solid currentColor;
     outline-offset: 3px;
-  }
-
-  .on-paper :focus-visible {
-    outline-color: var(--color-crash);
   }
 }
 
 @layer components {
-  .gutter {
-    padding-inline: clamp(1rem, 2.2vw, 2.5rem);
+  .wrap {
+    @apply mx-auto w-full max-w-[1440px];
+    padding-inline: clamp(20px, 4vw, 56px);
   }
 
-  .section {
-    padding-block: clamp(5rem, 11vw, 11rem);
+  .label {
+    @apply font-mono text-[13px] font-normal text-muted;
   }
 
-  .on-paper {
-    @apply bg-paper text-void;
-  }
-
-  .type-hero {
-    font-size: clamp(2.5rem, 1.4rem + 4.4vw, 6rem);
-    font-weight: 400;
+  .big {
+    font-size: clamp(2.75rem, 7vw, 6rem);
     line-height: 1;
     letter-spacing: -0.035em;
+    text-wrap: balance;
   }
 
-  .type-statement {
-    font-size: clamp(2.25rem, 1.2rem + 5.2vw, 7rem);
-    font-weight: 400;
-    line-height: 1.04;
-    letter-spacing: -0.035em;
+  .statement {
+    font-size: clamp(1.625rem, 3.2vw, 2.875rem);
+    line-height: 1.14;
+    letter-spacing: -0.025em;
   }
 
-  .type-title {
-    font-size: clamp(2rem, 1.2rem + 4.2vw, 5.5rem);
-    font-weight: 400;
-    line-height: 1.02;
-    letter-spacing: -0.03em;
-  }
-
-  .type-marquee {
-    font-size: clamp(5rem, 2rem + 15vw, 18rem);
-    font-weight: 500;
+  .banner {
+    font-size: clamp(3.1rem, 9vw, 8.1rem);
     line-height: 1;
     letter-spacing: -0.04em;
   }
 
-  .type-sad {
-    font-size: clamp(9rem, 4rem + 28vw, 30rem);
-    font-weight: 300;
-    line-height: 0.85;
-    letter-spacing: -0.04em;
+  .kv {
+    @apply grid grid-cols-[9.5rem_minmax(0,1fr)] gap-4 border-b border-rule py-3;
   }
 
-  .btn {
-    @apply inline-flex items-center justify-center bg-paper px-6 py-4 text-base leading-none font-medium text-void transition-colors duration-200;
+  .part {
+    @apply grid grid-cols-1 gap-6 border-t border-rule py-16 md:grid-cols-[minmax(0,1fr)_minmax(0,3fr)] md:gap-8 md:py-20;
   }
 
-  .btn:hover {
-    @apply bg-crash text-paper;
+  .button {
+    @apply inline-flex min-h-11 items-center border border-current px-6 transition-colors duration-200;
   }
 
-  .btn-ghost {
-    @apply bg-transparent text-current;
-    box-shadow: inset 0 0 0 1px currentColor;
+  .button:hover {
+    @apply bg-fg text-bg;
   }
 
-  .btn-ghost:hover {
-    @apply bg-paper text-void;
-    box-shadow: none;
+  .inv {
+    @apply bg-fg text-bg;
   }
 
-  .on-paper .btn-ghost:hover {
-    @apply bg-void text-paper;
+  .inv .label {
+    @apply text-bg;
   }
 
-  .bg-crash .btn:hover {
-    @apply bg-void text-paper;
+  .inv .button:hover {
+    @apply bg-bg text-fg;
   }
 
-  .photo-ink {
-    filter: grayscale(1) contrast(1.1);
+  .link-quiet {
+    @apply transition-opacity duration-200 hover:opacity-60;
   }
 
-  .preloader {
-    position: fixed;
-    inset: 0;
-    z-index: 70;
-    @apply bg-crash text-paper;
-    /* The page must still appear if the script never runs. */
-    animation: preloader-failsafe 0s linear 4s forwards;
+  .log-row {
+    transition: padding-left 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .log-row:hover {
+    padding-left: 12px;
+  }
+
+  .grain {
+    @apply pointer-events-none fixed inset-0 z-50 opacity-60;
+    background-image: url("/grain.png");
+  }
+
+  .theme-to-dark {
+    display: inline;
+  }
+
+  .theme-to-light {
+    display: none;
+  }
+
+  [data-theme="dark"] .theme-to-dark {
+    display: none;
+  }
+
+  [data-theme="dark"] .theme-to-light {
+    display: inline;
+  }
+
+  /* Sections ease up as they scroll in. Browsers without this simply show them in place. */
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Case studies slide open. Browsers without this simply open them instantly. */
+    .case::details-content {
+      height: 0;
+      overflow: clip;
+      transition:
+        height 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+        content-visibility 0.45s allow-discrete;
+    }
+
+    .case[open]::details-content {
+      height: auto;
+    }
+
+    @supports (animation-timeline: view()) {
+      .rise {
+        animation: rise linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 35%;
+      }
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .preloader {
-      display: none;
+    html,
+    .log-row {
+      transition: none;
     }
   }
 }
 
-@keyframes preloader-failsafe {
-  to {
-    visibility: hidden;
+@keyframes rise {
+  from {
+    transform: translateY(28px);
   }
 }
