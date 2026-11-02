@@ -1,10 +1,10 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
-import Image from 'next/image';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
-import photos from '@/data/gallery.json';
+import Photo from './Photo';
+import type { Photo as GalleryPhoto } from '@/lib/content/types';
 
-// The first photos in data/gallery.json fill these mosaic cells, in order.
+// The first photos in the gallery fill these mosaic cells, in order.
 const MOSAIC_LAYOUTS = [
   'col-span-2 md:col-span-6 md:row-span-2',
   'md:col-span-3',
@@ -16,7 +16,8 @@ const MOSAIC_LAYOUTS = [
   'md:col-span-4',
 ];
 
-const photoSrc = (file: string) => `/Gallery/${file}`;
+const VIEWER_BUTTON =
+  'rounded-md bg-ink p-2 text-paper transition-colors hover:bg-raised';
 
 function Tile({
   photo,
@@ -24,7 +25,7 @@ function Tile({
   className,
   onOpen,
 }: {
-  photo: (typeof photos)[number];
+  photo: GalleryPhoto;
   sizes: string;
   className: string;
   onOpen: () => void;
@@ -34,19 +35,21 @@ function Tile({
       type="button"
       onClick={onOpen}
       aria-label={`View photo: ${photo.alt}`}
-      className={`${className} relative block overflow-hidden bg-gray-900 border-2 border-gray-800 group transition-all hover:border-zerologon-yellow focus-visible:border-zerologon-yellow focus-visible:outline-none cursor-crosshair`}
+      className={`${className} relative block overflow-hidden rounded-[4px] bg-raised transition-opacity duration-150 hover:opacity-85`}
     >
-      <Image src={photoSrc(photo.file)} alt="" fill sizes={sizes} className="object-cover" />
-      <span className="absolute inset-0 bg-yellow-400/15 opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity flex items-center justify-center">
-        <span className="font-share-tech text-xs text-zerologon-yellow uppercase tracking-widest bg-zerologon-black px-3 py-1 border border-zerologon-yellow">
-          View
-        </span>
-      </span>
+      <Photo
+        src={photo.src}
+        alt=""
+        fill
+        sizes={sizes}
+        className="object-cover"
+        style={{ objectPosition: photo.position }}
+      />
     </button>
   );
 }
 
-export default function Gallery() {
+export default function Gallery({ photos }: { photos: GalleryPhoto[] }) {
   const [showAll, setShowAll] = useState(false);
   const [active, setActive] = useState<number | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
@@ -74,49 +77,52 @@ export default function Gallery() {
   };
 
   return (
-    <section ref={sectionRef} id="gallery" className="bg-zerologon-black px-4 py-16 sm:px-6 lg:px-16 lg:py-24 scroll-mt-16">
-      <div className="flex items-center gap-2 sm:gap-4 mb-8 sm:mb-12">
-        <span className="font-bebas text-4xl sm:text-5xl leading-none" style={{ color: '#1a1a1a', WebkitTextStroke: '2px white', opacity: 0.15 }}>05</span>
-        <h2 className="font-bebas text-3xl sm:text-5xl leading-none tracking-widest text-zerologon-white">GALLERY</h2>
-        <div className="hidden sm:block flex-1 h-1 bg-zerologon-yellow ml-4"></div>
-      </div>
+    <section ref={sectionRef} id="gallery" className="section border-t border-line">
+      <div className="wrap">
+        <h2 className="heading">Gallery</h2>
 
-      <div className="grid grid-cols-2 md:grid-cols-12 auto-rows-[9rem] sm:auto-rows-[12rem] lg:auto-rows-[14rem] gap-1 sm:gap-2">
-        {mosaic.map((photo, i) => (
-          <Tile
-            key={photo.file}
-            photo={photo}
-            className={MOSAIC_LAYOUTS[i]}
-            sizes={i === 0 ? '(max-width: 768px) 100vw, 50vw' : '(max-width: 768px) 50vw, 33vw'}
-            onOpen={() => setActive(i)}
-          />
-        ))}
-      </div>
-
-      {showAll && (
-        <div id="gallery-more" className="mt-1 sm:mt-2 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-1 sm:gap-2">
-          {more.map((photo, i) => (
+        <div className="mt-8 grid auto-rows-[9rem] grid-cols-2 gap-1.5 sm:auto-rows-[12rem] sm:gap-2 md:grid-cols-12 lg:auto-rows-[14rem]">
+          {mosaic.map((photo, i) => (
             <Tile
-              key={photo.file}
+              key={photo.src}
               photo={photo}
-              className="aspect-[4/3]"
-              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-              onOpen={() => setActive(mosaic.length + i)}
+              className={MOSAIC_LAYOUTS[i]}
+              sizes={i === 0 ? '(max-width: 768px) 100vw, 50vw' : '(max-width: 768px) 50vw, 33vw'}
+              onOpen={() => setActive(i)}
             />
           ))}
         </div>
-      )}
 
-      <div className="mt-8 sm:mt-10 text-center">
-        <button
-          type="button"
-          onClick={toggle}
-          aria-expanded={showAll}
-          aria-controls="gallery-more"
-          className="btn btn-outline"
-        >
-          {showAll ? 'Show less' : `View all (${photos.length})`}
-        </button>
+        {showAll && (
+          <div
+            id="gallery-more"
+            className="mt-1.5 grid grid-cols-2 gap-1.5 sm:mt-2 sm:grid-cols-3 sm:gap-2 lg:grid-cols-4"
+          >
+            {more.map((photo, i) => (
+              <Tile
+                key={photo.src}
+                photo={photo}
+                className="aspect-[4/3]"
+                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                onOpen={() => setActive(mosaic.length + i)}
+              />
+            ))}
+          </div>
+        )}
+
+        {more.length > 0 && (
+          <div className="mt-8">
+            <button
+              type="button"
+              onClick={toggle}
+              aria-expanded={showAll}
+              aria-controls="gallery-more"
+              className="btn btn-outline"
+            >
+              {showAll ? 'Show fewer' : `Show all ${photos.length}`}
+            </button>
+          </div>
+        )}
       </div>
 
       <dialog
@@ -132,32 +138,32 @@ export default function Gallery() {
           if (e.key === 'ArrowLeft') step(-1);
           if (e.key === 'ArrowRight') step(1);
         }}
-        className="m-0 h-dvh w-dvw max-h-none max-w-none bg-black/95 p-0"
+        className="m-0 h-dvh max-h-none w-dvw max-w-none overscroll-contain bg-ink/95 p-0 text-paper"
       >
         {active !== null && (
           <div data-stage="true" className="relative h-full w-full">
-            <div className="absolute inset-x-0 top-0 z-10 flex items-center justify-between px-4 py-3 font-share-tech text-xs text-gray-400 tracking-widest">
+            <div className="absolute inset-x-0 top-0 z-10 flex items-center justify-between px-4 py-3 text-sm text-muted tabular-nums">
               <span>
-                {active + 1} / {photos.length}
+                {active + 1} of {photos.length}
               </span>
               <button
                 type="button"
                 onClick={() => setActive(null)}
                 aria-label="Close photo viewer"
-                className="text-zerologon-yellow border-2 border-zerologon-yellow p-1.5 bg-zerologon-black hover:bg-zerologon-yellow hover:text-zerologon-black transition-colors"
+                className={VIEWER_BUTTON}
               >
-                <X className="w-5 h-5" />
+                <X className="h-5 w-5" />
               </button>
             </div>
 
-            <div data-stage="true" className="absolute inset-x-2 sm:inset-x-16 top-16 bottom-4">
-              <Image
-                key={photos[active].file}
-                src={photoSrc(photos[active].file)}
+            <div data-stage="true" className="absolute inset-x-2 top-16 bottom-4 sm:inset-x-16">
+              <Photo
+                key={photos[active].src}
+                src={photos[active].src}
                 alt={photos[active].alt}
                 fill
                 sizes="100vw"
-                className="object-contain pointer-events-none"
+                className="pointer-events-none object-contain"
               />
             </div>
 
@@ -165,17 +171,17 @@ export default function Gallery() {
               type="button"
               onClick={() => step(-1)}
               aria-label="Previous photo"
-              className="absolute left-2 top-1/2 -translate-y-1/2 z-10 text-zerologon-yellow border-2 border-zerologon-yellow p-1.5 bg-zerologon-black hover:bg-zerologon-yellow hover:text-zerologon-black transition-colors"
+              className={`${VIEWER_BUTTON} absolute top-1/2 left-2 z-10 -translate-y-1/2`}
             >
-              <ChevronLeft className="w-5 h-5" />
+              <ChevronLeft className="h-5 w-5" />
             </button>
             <button
               type="button"
               onClick={() => step(1)}
               aria-label="Next photo"
-              className="absolute right-2 top-1/2 -translate-y-1/2 z-10 text-zerologon-yellow border-2 border-zerologon-yellow p-1.5 bg-zerologon-black hover:bg-zerologon-yellow hover:text-zerologon-black transition-colors"
+              className={`${VIEWER_BUTTON} absolute top-1/2 right-2 z-10 -translate-y-1/2`}
             >
-              <ChevronRight className="w-5 h-5" />
+              <ChevronRight className="h-5 w-5" />
             </button>
           </div>
         )}

@@ -1,5 +1,165 @@
-{
-  "title": "Slay CTF 2026",
-  "subtitle": "Cybersecurity Conference",
-  "badge": "Upcoming"
-}
+[
+  {
+    "id": "slay-ctf-2026",
+    "title": "Slay CTF 2026",
+    "subtitle": "Cybersecurity Conference",
+    "type": "ctf",
+    "dateToBeAnnounced": true,
+    "links": [{ "label": "Register", "url": "" }]
+  },
+  {
+    "id": "zero-day-ctf-2025",
+    "title": "Zero Day CTF",
+    "type": "ctf",
+    "date": "2025-10-31",
+    "featured": true,
+    "summary": "300+ participants, 30+ teams, 1 winner",
+    "organisers": "Amrik Hore and Sharthak Ghosh",
+    "description": "Zerologon’s flagship in-house Capture The Flag event for 2024-25. Open participation drew a strong turnout, with certificates and digital vouchers awarded to winners.",
+    "stats": [
+      { "label": "Participants", "value": "300+" },
+      { "label": "Teams", "value": "30+" },
+      { "label": "Winners", "value": "1" },
+      { "label": "Academic year", "value": "24-25" }
+    ],
+    "links": [{ "label": "Event website", "url": "" }],
+    "photo": {
+      "src": "/Gallery/IMG-20241123-WA0110.jpg",
+      "alt": "A packed classroom of participants working on laptops"
+    }
+  },
+  {
+    "id": "hack-with-jolu-2026",
+    "title": "Hack With Jolu",
+    "type": "ctf",
+    "date": "2026-06-20",
+    "summary": "30+ participants",
+    "organisers": "Aryaneel Das and Sagnik Ghosh",
+    "links": []
+  },
+  {
+    "id": "sristi-jctf-2025",
+    "title": "Sristi — JCTF",
+    "type": "ctf",
+    "date": "2025-11-27",
+    "summary": "30+ participants, ₹7.5k cash prize pool",
+    "links": [{ "label": "Event website", "url": "" }]
+  },
+  {
+    "id": "intake-ctf-2025-oct",
+    "title": "Intake CTF",
+    "type": "ctf",
+    "date": "2025-10-13",
+    "summary": "40+ participants",
+    "organisers": "Amrik Hore and Sharthak Ghosh",
+    "links": [{ "label": "Photos", "url": "" }]
+  },
+  {
+    "id": "slay-ctf-2025",
+    "title": "Slay CTF",
+    "type": "ctf",
+    "date": "2025-09-25",
+    "summary": "50+ participants, 7 teams. Capture the flag and conference",
+    "links": [{ "label": "Report", "url": "" }]
+  },
+  {
+    "id": "intake-ctf-2025-sep",
+    "title": "Intake CTF",
+    "type": "ctf",
+    "date": "2025-09-01",
+    "datePrecision": "month",
+    "summary": "350+ participants",
+    "organisers": "Kaustav Das and Adil Hossain Sana",
+    "links": [{ "label": "Presentation", "url": "" }]
+  },
+  {
+    "id": "ai-in-cybersecurity-2024",
+    "title": "AI in Cybersecurity",
+    "type": "talk",
+    "date": "2024-08-21",
+    "summary": "JECLAT Conference, 70+ attendees",
+    "links": [{ "label": "Photos", "url": "" }]
+  },
+  {
+    "id": "hack-with-jolu-2024-25",
+    "title": "Hack With Jolu",
+    "type": "ctf",
+    "academicYear": "2024-25",
+    "organisers": "Kaustav Das and Adil Hossain Sana",
+    "links": [{ "label": "Event website", "url": "" }]
+  },
+  {
+    "id": "students-week-ctf-2024-25",
+    "title": "Student’s Week CTF",
+    "type": "ctf",
+    "academicYear": "2024-25",
+    "organisers": "Kaustav Das and Adil Hossain Sana",
+    "links": [{ "label": "Report", "url": "" }]
+  },
+  {
+    "id": "sristi-jctf-2024-25",
+    "title": "Sristi — JCTF",
+    "type": "ctf",
+    "academicYear": "2024-25",
+    "organisers": "Kaustav Das and Adil Hossain Sana",
+    "links": [{ "label": "Event website", "url": "" }]
+  },
+  {
+    "id": "slay-ctf-2024",
+    "title": "Slay CTF",
+    "type": "ctf",
+    "date": "2024-02-17",
+    "summary": "33 participants, 1 winner. Capture the flag and conference",
+    "links": [{ "label": "Report", "url": "" }]
+  },
+  {
+    "id": "students-week-ctf-2025",
+    "title": "Student’s Week CTF",
+    "type": "ctf",
+    "date": "2025-01-04",
+    "summary": "35 participants",
+    "organisers": "Pankaj Barman",
+    "links": [{ "label": "Report", "url": "" }]
+  },
+  {
+    "id": "intake-ctf-2023",
+    "title": "Intake CTF",
+    "type": "ctf",
+    "date": "2023-09-18",
+    "summary": "350+ participants",
+    "organisers": "Pankaj Barman",
+    "links": [{ "label": "Report", "url": "" }]
+  },
+  {
+    "id": "zero-day-ctf-2023-24",
+    "title": "Zero Day CTF",
+    "type": "ctf",
+    "academicYear": "2023-24",
+    "organisers": "Kaustav Das and Adil Hossain Sana",
+    "links": [{ "label": "Event website", "url": "" }]
+  },
+  {
+    "id": "hack-with-jolu-2023-24",
+    "title": "Hack With Jolu",
+    "type": "ctf",
+    "academicYear": "2023-24",
+    "organisers": "Pankaj Barman",
+    "links": [{ "label": "Event website", "url": "" }]
+  },
+  {
+    "id": "kernal-kombat-ctf-2023-24",
+    "title": "Kernal Kombat CTF",
+    "type": "ctf",
+    "academicYear": "2023-24",
+    "summary": "JECLAT, ₹3,300 cash prize pool",
+    "links": [{ "label": "Event website", "url": "" }]
+  },
+  {
+    "id": "sristi-jctf-2023-24",
+    "title": "Sristi — JCTF",
+    "type": "ctf",
+    "academicYear": "2023-24",
+    "organisers": "Pankaj Barman",
+    "links": [{ "label": "Event website", "url": "" }]
+  }
+]

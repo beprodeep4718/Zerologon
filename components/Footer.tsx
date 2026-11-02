@@ -1,60 +1,64 @@
-export default function Footer() {
-  const navLinks = [
-    { label: 'About', href: '#about' },
-    { label: 'Members', href: '#members' },
-    { label: 'Archives', href: '#archives' },
-    { label: 'Events', href: '#upcoming' },
-    { label: 'Gallery', href: '#gallery' },
+import Wordmark from './Wordmark';
+import type { NavLink, Site } from '@/lib/content/types';
+
+const LINK_CLASS = 'text-muted transition-colors hover:text-paper';
+
+export default function Footer({ site, nav }: { site: Site; nav: NavLink[] }) {
+  const details = ['Cybersecurity cell', site.department, site.college, `Est. ${site.founded}`].filter(Boolean);
+  const contact = [
+    ...site.socials,
+    ...(site.email ? [{ label: 'Email', url: `mailto:${site.email}` }] : []),
   ];
 
   return (
-    <>
-      <footer className="bg-zerologon-black border-t-4 border-zerologon-yellow px-4 py-12 sm:px-6 lg:px-16 lg:py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-12">
+    <footer className="border-t border-line">
+      <div className="wrap grid grid-cols-1 gap-10 py-12 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr] lg:py-16">
         <div>
-          <div className="font-bebas text-3xl sm:text-4xl text-zerologon-yellow tracking-widest mb-3">ZEROLOGON</div>
-          <p className="font-share-tech text-xs text-gray-600 leading-relaxed max-w-xs">
-            Cybersecurity Cell<br />
-            Department of Computer Science<br />
-            Est. 2022
-          </p>
+          <Wordmark />
+          <ul className="mt-4 space-y-1 text-muted">
+            {details.map((detail) => (
+              <li key={detail}>{detail}</li>
+            ))}
+          </ul>
         </div>
+
         <div>
-          <h4 className="font-share-tech text-xs text-zerologon-yellow uppercase tracking-widest mb-4 border-b border-gray-800 pb-2">{`// Navigate`}</h4>
-          <ul className="space-y-2">
-            {navLinks.map((link) => (
-              <li key={link.label}>
-                <a href={link.href} className="font-share-tech text-xs text-gray-600 hover:text-zerologon-white transition-colors flex items-center gap-2">
-                  <span className="text-zerologon-red">{'>'}</span>
+          <h2 className="text-base [font-stretch:100%]">Navigate</h2>
+          <ul className="mt-3 space-y-2">
+            {nav.map((link) => (
+              <li key={link.href}>
+                <a href={link.href} className={LINK_CLASS}>
                   {link.label}
                 </a>
               </li>
             ))}
           </ul>
         </div>
-        <div>
-          <h4 className="font-share-tech text-xs text-zerologon-yellow uppercase tracking-widest mb-4 border-b border-gray-800 pb-2">{`// Connect`}</h4>
-          <ul className="space-y-2">
-            {['Twitter', 'GitHub', 'Discord', 'Email', 'LinkedIn'].map((link) => (
-              <li key={link}>
-                <a href="#" className="font-share-tech text-xs text-gray-600 hover:text-zerologon-white transition-colors flex items-center gap-2">
-                  <span className="text-zerologon-red">{'>'}</span>
-                  {link}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </footer>
 
-      <div className="bg-zerologon-black border-t border-gray-800 px-4 py-4 sm:px-6 lg:px-16 flex flex-col md:flex-row md:justify-between md:items-center gap-2 font-share-tech text-xs text-gray-700">
-        <span className="text-center md:text-left">© 2026 ZEROLOGON CYBERSECURITY CELL. ALL RIGHTS RESERVED.</span>
-        <div className="space-x-4 text-center md:text-right">
-          <span>CVE-2020-1472</span>
-          <a href="#" className="text-zerologon-yellow hover:text-zerologon-white">PRIVACY</a>
-          <span>·</span>
-          <a href="#" className="text-zerologon-yellow hover:text-zerologon-white">TERMS</a>
+        {contact.length > 0 && (
+          <div>
+            <h2 className="text-base [font-stretch:100%]">Connect</h2>
+            <ul className="mt-3 space-y-2">
+              {contact.map((link) => (
+                <li key={link.label}>
+                  <a href={link.url} className={LINK_CLASS}>
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+
+      <div className="border-t border-line">
+        <div className="wrap flex flex-col gap-1 py-5 text-sm text-muted sm:flex-row sm:justify-between">
+          <span>
+            © {new Date().getFullYear()} {site.name}
+          </span>
+          <span className="font-mono">CVE-2020-1472</span>
         </div>
       </div>
-    </>
+    </footer>
   );
 }

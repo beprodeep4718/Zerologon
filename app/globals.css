@@ -1,213 +1,187 @@
 @import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
-
-@custom-variant dark (&:is(.dark *));
 
 @theme {
-  --color-zerologon-black: #0a0a0a;
-  --color-zerologon-white: #f0ede6;
-  --color-zerologon-yellow: #FFE500;
-  --color-zerologon-red: #FF2D00;
-  --color-zerologon-green: #00FF88;
-  --color-zerologon-blue: #0057FF;
+  --color-ink: #0e0f11;
+  --color-raised: #17191d;
+  --color-line: #26282d;
+  --color-paper: #f2f1ec;
+  --color-muted: #b4b6bc;
+  --color-signal: #ffd60a;
 
-  --font-space-mono: 'Space Mono', monospace;
-  --font-bebas: 'Bebas Neue', sans-serif;
-  --font-share-tech: 'Share Tech Mono', monospace;
+  /* The same roles on paper sections. Signal never appears there: it fails contrast. */
+  --color-ink-soft: #4b4e55;
+  --color-rule: #d9d7cf;
 
-  --shadow-zerologon: 6px 6px 0px #0a0a0a;
-  --shadow-zerologon-lg: 10px 10px 0px #0a0a0a;
-  --shadow-zerologon-hover: 2px 2px 0px #0a0a0a;
-
-  --animate-blink: blink 1s infinite;
-  --animate-ticker: ticker 25s linear infinite;
-}
-
-@layer base {
-  body {
-    @apply cursor-crosshair overflow-x-hidden bg-background text-foreground;
-  }
-
-  html {
-    @apply scroll-smooth font-sans;
-  }
-  * {
-    @apply border-border outline-ring/50;
-  }
-}
-
-/* Noise overlay */
-@layer components {
-  .noise-overlay::before {
-    content: '';
-    @apply fixed inset-0 pointer-events-none z-[1000] opacity-40;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-  }
-
-  /* Scanlines effect */
-  .scanlines {
-    @apply absolute inset-0 pointer-events-none opacity-30;
-    background: repeating-linear-gradient(
-      to bottom,
-      transparent 0px,
-      transparent 3px,
-      rgba(0, 0, 0, 0.15) 3px,
-      rgba(0, 0, 0, 0.15) 4px
-    );
-  }
-
-  /* Grid background for hero */
-  .hero-grid-bg {
-    @apply absolute inset-0;
-    background-image: linear-gradient(rgba(255, 229, 0, 0.06) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 229, 0, 0.06) 1px, transparent 1px);
-    background-size: 48px 48px;
-  }
-
-  /* Button styles */
-  .btn {
-    @apply text-xs font-bold uppercase tracking-[0.1em] px-7 py-3 border-4 cursor-crosshair inline-block transition-all duration-75;
-    border-color: #0a0a0a;
-    font-family: 'Space Mono', monospace;
-  }
-
-  .btn-primary {
-    background-color: #FFE500;
-    color: #0a0a0a;
-    box-shadow: 6px 6px 0px #0a0a0a;
-  }
-
-  .btn-primary:hover {
-    @apply translate-x-1 translate-y-1;
-    box-shadow: 2px 2px 0px #0a0a0a;
-  }
-
-  .btn-outline {
-    background-color: transparent;
-    border-color: #f0ede6;
-    color: #f0ede6;
-    @apply text-xs font-bold uppercase tracking-[0.1em] px-7 py-3 border-4 cursor-crosshair inline-block transition-all duration-75;
-    box-shadow: 6px 6px 0 rgba(255, 255, 255, 0.3);
-    font-family: 'Space Mono', monospace;
-  }
-
-  .btn-outline:hover {
-    background-color: #f0ede6;
-    color: #0a0a0a;
-    @apply translate-x-1 translate-y-1;
-    box-shadow: 2px 2px 0px #0a0a0a;
-  }
+  --color-byte: #63666e;
 }
 
 @theme inline {
-  --font-heading: var(--font-sans);
-  --font-sans: var(--font-sans);
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
-  --color-ring: var(--ring);
-  --color-input: var(--input);
-  --color-border: var(--border);
-  --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary: var(--secondary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
-  --color-card-foreground: var(--card-foreground);
-  --color-card: var(--card);
-  --color-foreground: var(--foreground);
-  --color-background: var(--background);
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
+  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
 }
 
-:root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+@layer base {
+  html {
+    color-scheme: dark;
+    scroll-padding-top: 65px;
+    overflow-wrap: break-word;
+    @apply bg-ink font-sans text-paper antialiased;
+  }
+
+  a,
+  button {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgb(255 214 10 / 0.2);
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-stretch: 112%;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-signal);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  .on-paper :focus-visible {
+    outline-color: var(--color-ink);
+  }
 }
 
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  .wrap {
+    @apply mx-auto w-full max-w-[75rem] px-4 sm:px-6 lg:px-8;
+  }
+
+  .section {
+    @apply py-16 sm:py-20 lg:py-28;
+  }
+
+  .on-paper {
+    @apply bg-paper text-ink;
+  }
+
+  .display {
+    font-size: clamp(2.75rem, 1.5rem + 5.6vw, 5.25rem);
+    line-height: 1.02;
+    letter-spacing: -0.025em;
+  }
+
+  .heading {
+    font-size: clamp(2rem, 1.6rem + 1.8vw, 3rem);
+    line-height: 1.08;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center rounded-md px-5 py-3 text-[0.9375rem] leading-none font-medium transition-colors duration-150;
+  }
+
+  .btn-sm {
+    @apply px-4 py-2.5 text-sm;
+  }
+
+  .btn-primary {
+    @apply bg-signal text-ink;
+  }
+
+  .btn-primary:hover {
+    background-color: #ffe14d;
+  }
+
+  .btn-outline {
+    @apply text-paper;
+    box-shadow: inset 0 0 0 1px #4a4d55;
+  }
+
+  .btn-outline:hover {
+    @apply bg-raised;
+  }
+
+  .on-paper .btn-outline {
+    @apply text-ink;
+    box-shadow: inset 0 0 0 1px var(--color-ink);
+  }
+
+  .on-paper .btn-outline:hover {
+    @apply bg-ink text-paper;
+  }
+
+  /* 256 cells, one per possible byte. Zerologon succeeds roughly once in 256
+     attempts, so the cursor tries each cell in turn and stops at 00. */
+  .byte-grid {
+    display: grid;
+    grid-template-columns: repeat(16, minmax(0, 1fr));
+    gap: 2px;
+  }
+
+  .byte {
+    display: grid;
+    place-items: center;
+    height: 0.75rem;
+    border-radius: 2px;
+    background-color: var(--color-raised);
+    color: var(--color-byte);
+    font-family: var(--font-mono);
+    font-size: 0;
+    font-weight: 500;
+  }
+
+  .byte-hit {
+    background-color: var(--color-signal);
+    color: var(--color-ink);
+  }
+
+  @media (min-width: 40rem) {
+    .byte {
+      height: auto;
+      aspect-ratio: 1;
+      font-size: 0.6875rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .byte-tried {
+      animation: byte-try 400ms ease-out;
+      animation-delay: calc(350ms + var(--i) * 8ms);
+    }
+
+    .byte-hit {
+      animation: byte-hit 200ms ease-out backwards;
+      animation-delay: calc(350ms + var(--i) * 8ms);
+    }
+  }
+}
+
+@keyframes byte-try {
+  from {
+    background-color: var(--color-muted);
+    color: var(--color-ink);
+  }
+}
+
+@keyframes byte-hit {
+  from {
+    background-color: var(--color-raised);
+    color: var(--color-byte);
+  }
 }

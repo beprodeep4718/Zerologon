@@ -1,133 +1,44 @@
-'use client';
-import { useState, useEffect } from 'react';
-import DecryptedText from "./animation/DecryptedText";
-import TextType from "./TextType";
+import ByteGrid from './ByteGrid';
+import type { ClubEvent, Site } from '@/lib/content/types';
 
-// Helper: ms to type a string
-const typeTime = (text: string, speed: number) => text.length * speed;
-
-const SPEED = 20;
-const DELAYS = {
-  whoamiCmd: 0,
-  whoamiRes: typeTime("$ ./whoami.sh", SPEED) + 200,
-  intelCmd:  typeTime("$ ./whoami.sh", SPEED) + typeTime("zerologon_cell", SPEED) + 500,
-  intelRes:  typeTime("$ ./whoami.sh", SPEED) + typeTime("zerologon_cell", SPEED) + typeTime("$ ./intel.sh", SPEED) + 700,
-};
-
-export default function Hero() {
-  const [started, setStarted] = useState(false);
-
-  useEffect(() => {
-    setStarted(true);
-  }, []);
-
+export default function Hero({
+  site,
+  nextEvent,
+  stats,
+}: {
+  site: Site;
+  nextEvent?: ClubEvent;
+  stats: { value: string; label: string }[];
+}) {
   return (
-    <section id="hero" className="min-h-screen bg-zerologon-black grid grid-cols-1 lg:grid-cols-2 relative overflow-hidden pt-16">
-      <div className="hero-grid-bg"></div>
-      <div className="scanlines"></div>
-
-      <div className="relative z-10 flex flex-col justify-center px-6 sm:px-10 lg:px-16 py-16 sm:py-20">
-        <div className="font-share-tech text-xs text-zerologon-green tracking-[0.3em] uppercase mb-6 flex items-center gap-2">
-          <span className="text-zerologon-red">{'>'}</span>
-          CYBERSECURITY CELL
+    <section id="hero">
+      <div className="wrap grid grid-cols-1 items-center gap-12 pt-14 pb-14 sm:pt-20 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:gap-16 lg:pt-24 lg:pb-20">
+        <div>
+          <h1 className="display">{site.hero.headline}</h1>
+          <p className="mt-6 max-w-[34rem] text-lg leading-relaxed text-muted">{site.hero.intro}</p>
+          <div className="mt-8 flex flex-wrap items-center gap-3">
+            {nextEvent && (
+              <a href="#upcoming" className="btn btn-primary">
+                See {nextEvent.title}
+              </a>
+            )}
+            <a href="#events" className={nextEvent ? 'btn btn-outline' : 'btn btn-primary'}>
+              Past events
+            </a>
+          </div>
         </div>
-        <h1 className="font-bebas text-7xl sm:text-8xl lg:text-9xl leading-none text-zerologon-white mb-8">
-          <DecryptedText animateOn="inViewHover" text="ZERO" /><span className="animate-blink">_</span>
-          <span className="text-zerologon-yellow ml-3 lg:ml-5" style={{ WebkitTextStroke: '3px #FFE500', color: 'transparent' }}>
-            <DecryptedText animateOn="inViewHover" text="LOGON" />
-          </span>
-        </h1>
-        <p className="text-sm text-gray-500 max-w-sm leading-relaxed border-l-4 border-zerologon-red pl-4 mb-8">
-          We break things to understand them. A student group of hackers, defenders, and researchers.
-        </p>
-        <div className="flex gap-4 flex-wrap">
-          <a href="#upcoming" className="btn btn-primary">Upcoming Events</a>
-          <a href="#about" className="btn btn-outline">Learn More</a>
-        </div>
+        <ByteGrid caption={site.hero.gridCaption} />
       </div>
 
-      {/* Terminal */}
-      <div className="relative z-10 flex items-center justify-center px-6 sm:px-10 lg:px-12 py-10 lg:py-20">
-        <div className="w-full border-4 border-zerologon-black shadow-zerologon-lg bg-black">
-          <div className="bg-gray-900 border-b-4 border-zerologon-black px-4 py-2 flex items-center gap-2 font-share-tech text-xs text-gray-600">
-            <div className="flex gap-2">
-              <span className="w-3 h-3 rounded-full bg-zerologon-red"></span>
-              <span className="w-3 h-3 rounded-full bg-zerologon-yellow"></span>
-              <span className="w-3 h-3 rounded-full bg-zerologon-green"></span>
+      <div className="border-t border-line">
+        <dl className="wrap grid grid-cols-3 gap-4 py-6 sm:gap-6 sm:py-8">
+          {stats.map((stat) => (
+            <div key={stat.label} className="flex flex-col-reverse gap-1">
+              <dt className="text-sm text-muted sm:text-base">{stat.label}</dt>
+              <dd className="text-2xl font-semibold sm:text-3xl">{stat.value}</dd>
             </div>
-            <span>zerologon@cell:~#</span>
-          </div>
-
-          <div className="px-4 sm:px-6 py-6 font-share-tech text-sm leading-8 text-zerologon-green min-h-48">
-
-            {/* $ ./whoami.sh */}
-            <div className="block text-gray-600">
-              {started && (
-                <TextType
-                  as="span"
-                  text="$ ./whoami.sh"
-                  typingSpeed={SPEED}
-                  initialDelay={DELAYS.whoamiCmd}
-                  pauseDuration={99999}
-                  showCursor={false}
-                  loop={false}
-                />
-              )}
-            </div>
-
-            {/* zerologon_cell */}
-            <div className="block">
-              {started && (
-                <TextType
-                  as="span"
-                  text="zerologon_cell"
-                  typingSpeed={SPEED}
-                  initialDelay={DELAYS.whoamiRes}
-                  pauseDuration={99999}
-                  showCursor={false}
-                  loop={false}
-                />
-              )}
-            </div>
-
-            {/* $ ./intel.sh */}
-            <div className="block text-gray-600 mt-4">
-              {started && (
-                <TextType
-                  as="span"
-                  text="$ ./intel.sh"
-                  typingSpeed={SPEED}
-                  initialDelay={DELAYS.intelCmd}
-                  pauseDuration={99999}
-                  showCursor={false}
-                  loop={false}
-                />
-              )}
-            </div>
-
-            {/* Cycling intel messages */}
-            <div className="block">
-              {started && (
-                <TextType
-                  as="span"
-                  text={[
-                    "CTF season is always open.",
-                    "Recon. Exploit. Report. Repeat.",
-                  ]}
-                  typingSpeed={60}
-                  deletingSpeed={35}
-                  initialDelay={DELAYS.intelRes}
-                  pauseDuration={1800}
-                  cursorCharacter="▌"
-                  cursorClassName="text-zerologon-yellow"
-                  showCursor
-                  loop
-                />
-              )}
-            </div>
-
-          </div>
-        </div>
+          ))}
+        </dl>
       </div>
     </section>
   );

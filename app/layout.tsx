@@ -1,14 +1,26 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import { Inter } from "next/font/google";
-import { cn } from "@/lib/utils";
+import { Archivo, IBM_Plex_Mono } from "next/font/google";
+import { getSite } from "@/lib/content";
+import { cn, SITE_URL } from "@/lib/utils";
 
-const inter = Inter({subsets:['latin'],variable:'--font-sans'});
+const archivo = Archivo({ subsets: ["latin"], axes: ["wdth"], variable: "--font-archivo" });
+const plexMono = IBM_Plex_Mono({ subsets: ["latin"], weight: "500", variable: "--font-plex-mono" });
 
-export const metadata: Metadata = {
-  title: "ZEROLOGON — Cybersecurity Cell",
-  description: "ZEROLOGON is the official cybersecurity cell - a student group of hackers, defenders, and researchers.",
-};
+export const viewport: Viewport = { themeColor: "#0e0f11" };
+
+export async function generateMetadata(): Promise<Metadata> {
+  const site = await getSite();
+  const title = `${site.name} | Student cybersecurity cell`;
+
+  return {
+    metadataBase: new URL(SITE_URL),
+    title,
+    description: site.description,
+    openGraph: { title, description: site.description, url: "/", siteName: site.name, type: "website" },
+    twitter: { card: "summary_large_image", title, description: site.description },
+  };
+}
 
 export default function RootLayout({
   children,
@@ -16,16 +28,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={cn("h-full antialiased scroll-smooth", "font-sans", inter.variable)}
-    >
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
-      </head>
-      <body className="min-h-full flex flex-col bg-zerologon-white text-zerologon-black cursor-crosshair overflow-x-hidden">{children}</body>
+    <html lang="en" className={cn(archivo.variable, plexMono.variable)}>
+      <body className="min-h-screen">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-60 focus:rounded-md focus:bg-signal focus:px-4 focus:py-2 focus:text-ink"
+        >
+          Skip to content
+        </a>
+        {children}
+      </body>
     </html>
   );
 }

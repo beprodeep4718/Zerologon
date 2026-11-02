@@ -1,0 +1,47 @@
+{
+  "name": "Zerologon",
+  "description": "Zerologon is a student cybersecurity cell of hackers, defenders, and researchers. We run CTFs, workshops, and talks on campus.",
+  "college": "",
+  "department": "Department of Computer Science",
+  "founded": "2022",
+  "hero": {
+    "headline": "We break things to understand them.",
+    "intro": "Zerologon is a student group of hackers, defenders, and researchers. We run CTFs, workshops, and talks on campus.",
+    "gridCaption": "CVE-2020-1472, the bug we’re named after: about one login attempt in 256 succeeds using nothing but zeros."
+  },
+  "about": {
+    "paragraphs": [
+      "Zerologon is the official cybersecurity cell of our college. We’re named after the Windows vulnerability CVE-2020-1472.",
+      "We run CTFs, workshops, and talks on campus, and our members work on everything from reverse engineering malware to web exploitation."
+    ],
+    "photo": {
+      "src": "/Gallery/IMG-20260508-WA0152.jpg",
+      "alt": "Zerologon team group photo in matching black T-shirts"
+    }
+  },
+  "focusAreas": [
+    "Capture the flag",
+    "Forensics",
+    "Reverse engineering",
+    "Web exploitation",
+    "Cryptography",
+    "Pwning",
+    "OSINT",
+    "Malware analysis",
+    "Network security"
+  ],
+  "peakParticipants": "350+",
+  "join": {
+    "heading": "Get involved",
+    "body": "Come to our next event, or message us to find out how to join.",
+    "label": "Message us",
+    "url": ""
+  },
+  "email": "",
+  "socials": [
+    { "label": "Twitter", "url": "" },
+    { "label": "GitHub", "url": "" },
+    { "label": "Discord", "url": "" },
+    { "label": "LinkedIn", "url": "" }
+  ]
+}
