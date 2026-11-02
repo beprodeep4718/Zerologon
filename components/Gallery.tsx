@@ -2,32 +2,26 @@
 import { useEffect, useRef, useState } from 'react';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import Photo from './Photo';
+import { gsap, MOTION, useGSAP } from '@/lib/motion';
 import type { Photo as GalleryPhoto } from '@/lib/content/types';
 
-// The first photos in the gallery fill these mosaic cells, in order.
-const MOSAIC_LAYOUTS = [
-  'col-span-2 md:col-span-6 md:row-span-2',
-  'md:col-span-3',
-  'md:col-span-3',
-  'md:col-span-3',
-  'md:col-span-3',
-  'col-span-2 md:col-span-4',
-  'md:col-span-4',
-  'md:col-span-4',
-];
+const VISIBLE_COUNT = 12;
+const COLUMNS = 3;
 
-const VIEWER_BUTTON =
-  'rounded-md bg-ink p-2 text-paper transition-colors hover:bg-raised';
+// How far each column drifts as the section passes, so they slide against each other.
+const DRIFT = [-14, 10, -22];
+
+const VIEWER_BUTTON = 'bg-void p-3 text-paper transition-colors hover:bg-crash';
 
 function Tile({
   photo,
   sizes,
-  className,
+  className = '',
   onOpen,
 }: {
   photo: GalleryPhoto;
   sizes: string;
-  className: string;
+  className?: string;
   onOpen: () => void;
 }) {
   return (
@@ -35,14 +29,14 @@ function Tile({
       type="button"
       onClick={onOpen}
       aria-label={`View photo: ${photo.alt}`}
-      className={`${className} relative block overflow-hidden rounded-[4px] bg-raised transition-opacity duration-150 hover:opacity-85`}
+      className={`${className} group relative block w-full overflow-hidden bg-line`}
     >
       <Photo
         src={photo.src}
         alt=""
         fill
         sizes={sizes}
-        className="object-cover"
+        className="photo-ink object-cover transition-[filter,scale] duration-500 group-hover:scale-105 group-hover:grayscale-0"
         style={{ objectPosition: photo.position }}
       />
     </button>
@@ -55,9 +49,28 @@ export default function Gallery({ photos }: { photos: GalleryPhoto[] }) {
   const sectionRef = useRef<HTMLElement>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
 
-  const mosaic = photos.slice(0, MOSAIC_LAYOUTS.length);
-  const more = photos.slice(MOSAIC_LAYOUTS.length);
+  const visible = photos.slice(0, VISIBLE_COUNT);
+  const more = photos.slice(VISIBLE_COUNT);
   const isOpen = active !== null;
+
+  useGSAP(
+    () => {
+      gsap.matchMedia().add(`${MOTION} and (min-width: 768px)`, () => {
+        gsap.utils.toArray<HTMLElement>('[data-column]').forEach((column, i) => {
+          gsap.fromTo(
+            column,
+            { yPercent: -DRIFT[i] },
+            {
+              yPercent: DRIFT[i],
+              ease: 'none',
+              scrollTrigger: { trigger: '[data-columns]', start: 'top bottom', end: 'bottom top', scrub: true },
+            },
+          );
+        });
+      });
+    },
+    { scope: sectionRef },
+  );
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -71,62 +84,67 @@ export default function Gallery({ photos }: { photos: GalleryPhoto[] }) {
     setActive((i) => (i === null ? i : (i + delta + photos.length) % photos.length));
 
   const toggle = () => {
-    // Collapsing removes the rows below the mosaic, so go back to the section top.
+    // Collapsing removes the rows below the columns, so go back to the section top.
     if (showAll) sectionRef.current?.scrollIntoView();
     setShowAll(!showAll);
   };
 
   return (
-    <section ref={sectionRef} id="gallery" className="section border-t border-line">
-      <div className="wrap">
-        <h2 className="heading">Gallery</h2>
+    <section ref={sectionRef} id="gallery" className="overflow-hidden bg-void pt-20 pb-20 md:pt-32 md:pb-40">
+      <h2 className="gutter text-haze">Gallery</h2>
 
-        <div className="mt-8 grid auto-rows-[9rem] grid-cols-2 gap-1.5 sm:auto-rows-[12rem] sm:gap-2 md:grid-cols-12 lg:auto-rows-[14rem]">
-          {mosaic.map((photo, i) => (
+      <div data-columns className="gutter mt-8 grid grid-cols-2 gap-2 md:mt-40 md:grid-cols-3 md:gap-4">
+        {Array.from({ length: COLUMNS }, (_, column) => (
+          <div key={column} data-column className="contents md:flex md:flex-col md:gap-4">
+            {visible.map((photo, i) =>
+              i % COLUMNS === column ? (
+                <Tile
+                  key={photo.src}
+                  photo={photo}
+                  className={i % 2 === 0 ? 'aspect-[4/5]' : 'aspect-[4/3]'}
+                  sizes="(max-width: 768px) 50vw, 33vw"
+                  onOpen={() => setActive(i)}
+                />
+              ) : null,
+            )}
+          </div>
+        ))}
+      </div>
+
+      {showAll && (
+        <div
+          id="gallery-more"
+          className="gutter mt-2 grid grid-cols-2 gap-2 md:mt-40 md:grid-cols-4 md:gap-4"
+        >
+          {more.map((photo, i) => (
             <Tile
               key={photo.src}
               photo={photo}
-              className={MOSAIC_LAYOUTS[i]}
-              sizes={i === 0 ? '(max-width: 768px) 100vw, 50vw' : '(max-width: 768px) 50vw, 33vw'}
-              onOpen={() => setActive(i)}
+              className="aspect-[4/3]"
+              sizes="(max-width: 768px) 50vw, 25vw"
+              onOpen={() => setActive(visible.length + i)}
             />
           ))}
         </div>
+      )}
 
-        {showAll && (
-          <div
-            id="gallery-more"
-            className="mt-1.5 grid grid-cols-2 gap-1.5 sm:mt-2 sm:grid-cols-3 sm:gap-2 lg:grid-cols-4"
+      {more.length > 0 && (
+        <div className="gutter mt-10 md:mt-32">
+          <button
+            type="button"
+            onClick={toggle}
+            aria-expanded={showAll}
+            aria-controls="gallery-more"
+            className="btn btn-ghost"
           >
-            {more.map((photo, i) => (
-              <Tile
-                key={photo.src}
-                photo={photo}
-                className="aspect-[4/3]"
-                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                onOpen={() => setActive(mosaic.length + i)}
-              />
-            ))}
-          </div>
-        )}
-
-        {more.length > 0 && (
-          <div className="mt-8">
-            <button
-              type="button"
-              onClick={toggle}
-              aria-expanded={showAll}
-              aria-controls="gallery-more"
-              className="btn btn-outline"
-            >
-              {showAll ? 'Show fewer' : `Show all ${photos.length}`}
-            </button>
-          </div>
-        )}
-      </div>
+            {showAll ? 'Show fewer' : `Show all ${photos.length}`}
+          </button>
+        </div>
+      )}
 
       <dialog
         ref={dialogRef}
+        data-lenis-prevent
         aria-label="Photo viewer"
         onClose={() => setActive(null)}
         onClick={(e) => {
@@ -138,11 +156,11 @@ export default function Gallery({ photos }: { photos: GalleryPhoto[] }) {
           if (e.key === 'ArrowLeft') step(-1);
           if (e.key === 'ArrowRight') step(1);
         }}
-        className="m-0 h-dvh max-h-none w-dvw max-w-none overscroll-contain bg-ink/95 p-0 text-paper"
+        className="m-0 h-dvh max-h-none w-dvw max-w-none overscroll-contain bg-void/95 p-0 text-paper"
       >
         {active !== null && (
           <div data-stage="true" className="relative h-full w-full">
-            <div className="absolute inset-x-0 top-0 z-10 flex items-center justify-between px-4 py-3 text-sm text-muted tabular-nums">
+            <div className="absolute inset-x-0 top-0 z-10 flex items-center justify-between px-4 py-3 text-haze tabular-nums">
               <span>
                 {active + 1} of {photos.length}
               </span>

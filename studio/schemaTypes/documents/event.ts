@@ -161,8 +161,7 @@ export const event = defineType({
     defineField({
       name: 'photo',
       type: 'photo',
-      description: 'Only shown on the featured event.',
-      hidden: ({ document }) => !document?.featured,
+      description: 'Appears when someone hovers over this event. Without one, a gallery photo is used.',
     }),
   ],
   preview: {

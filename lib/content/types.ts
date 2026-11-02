@@ -46,8 +46,9 @@ export type Site = {
   hero: {
     headline: string;
     intro: string;
-    gridCaption: string;
+    nameOrigin: string;
   };
+  signoff: string;
   about: {
     paragraphs: string[];
     photo: Photo;

@@ -1,63 +1,76 @@
-import Wordmark from './Wordmark';
+'use client';
+import { useRef } from 'react';
+import BrokenWordmark from './BrokenWordmark';
+import { gsap, MOTION, SLICE_OFFSETS, useGSAP } from '@/lib/motion';
 import type { NavLink, Site } from '@/lib/content/types';
 
-const LINK_CLASS = 'text-muted transition-colors hover:text-paper';
-
 export default function Footer({ site, nav }: { site: Site; nav: NavLink[] }) {
+  const root = useRef<HTMLElement>(null);
   const details = ['Cybersecurity cell', site.department, site.college, `Est. ${site.founded}`].filter(Boolean);
   const contact = [
     ...site.socials,
     ...(site.email ? [{ label: 'Email', url: `mailto:${site.email}` }] : []),
   ];
 
-  return (
-    <footer className="border-t border-line">
-      <div className="wrap grid grid-cols-1 gap-10 py-12 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr] lg:py-16">
-        <div>
-          <Wordmark />
-          <ul className="mt-4 space-y-1 text-muted">
-            {details.map((detail) => (
-              <li key={detail}>{detail}</li>
-            ))}
-          </ul>
-        </div>
+  // The wordmark broke at the top of the page. Reaching the end puts it back together.
+  useGSAP(
+    () => {
+      gsap.matchMedia().add(MOTION, () => {
+        gsap.fromTo(
+          '.slice',
+          { x: (i) => SLICE_OFFSETS[i % SLICE_OFFSETS.length] },
+          {
+            x: 0,
+            ease: 'power2.out',
+            scrollTrigger: { trigger: root.current, start: 'top bottom', end: 'bottom bottom', scrub: 0.4 },
+          },
+        );
+      });
+    },
+    { scope: root },
+  );
 
-        <div>
-          <h2 className="text-base [font-stretch:100%]">Navigate</h2>
-          <ul className="mt-3 space-y-2">
-            {nav.map((link) => (
-              <li key={link.href}>
-                <a href={link.href} className={LINK_CLASS}>
+  return (
+    <footer ref={root} className="overflow-hidden bg-void pt-20 md:pt-32">
+      {site.signoff && <p className="gutter type-statement max-w-[14em]">{site.signoff}</p>}
+
+      <div className="gutter mt-16 grid grid-cols-2 gap-8 border-t border-line pt-6 md:mt-24 md:grid-cols-4">
+        <ul className="col-span-2 space-y-1 text-haze">
+          {details.map((detail) => (
+            <li key={detail}>{detail}</li>
+          ))}
+        </ul>
+
+        <ul className="space-y-1">
+          {nav.map((link) => (
+            <li key={link.href}>
+              <a href={link.href} className="underline-offset-4 hover:underline">
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        {contact.length > 0 && (
+          <ul className="space-y-1">
+            {contact.map((link) => (
+              <li key={link.label}>
+                <a href={link.url} className="underline-offset-4 hover:underline">
                   {link.label}
                 </a>
               </li>
             ))}
           </ul>
-        </div>
-
-        {contact.length > 0 && (
-          <div>
-            <h2 className="text-base [font-stretch:100%]">Connect</h2>
-            <ul className="mt-3 space-y-2">
-              {contact.map((link) => (
-                <li key={link.label}>
-                  <a href={link.url} className={LINK_CLASS}>
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
         )}
       </div>
 
-      <div className="border-t border-line">
-        <div className="wrap flex flex-col gap-1 py-5 text-sm text-muted sm:flex-row sm:justify-between">
-          <span>
-            © {new Date().getFullYear()} {site.name}
-          </span>
-          <span className="font-mono">CVE-2020-1472</span>
-        </div>
+      <BrokenWordmark id="footer" className="gutter mt-12 md:mt-20" />
+
+      <div className="gutter flex justify-between py-4 text-sm text-haze md:pl-[calc(clamp(1rem,2.2vw,2.5rem)+9rem)]">
+        <span>
+          © {new Date().getFullYear()} {site.name}
+        </span>
+        <span className="font-mono">CVE-2020-1472</span>
       </div>
     </footer>
   );

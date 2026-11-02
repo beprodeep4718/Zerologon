@@ -1,13 +1,15 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import { Archivo, IBM_Plex_Mono } from "next/font/google";
+import { Hanken_Grotesk, IBM_Plex_Mono } from "next/font/google";
+import Preloader from "@/components/Preloader";
+import SmoothScroll from "@/components/SmoothScroll";
 import { getSite } from "@/lib/content";
 import { cn, SITE_URL } from "@/lib/utils";
 
-const archivo = Archivo({ subsets: ["latin"], axes: ["wdth"], variable: "--font-archivo" });
+const hanken = Hanken_Grotesk({ subsets: ["latin"], variable: "--font-hanken" });
 const plexMono = IBM_Plex_Mono({ subsets: ["latin"], weight: "500", variable: "--font-plex-mono" });
 
-export const viewport: Viewport = { themeColor: "#0e0f11" };
+export const viewport: Viewport = { themeColor: "#000000" };
 
 export async function generateMetadata(): Promise<Metadata> {
   const site = await getSite();
@@ -28,14 +30,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cn(archivo.variable, plexMono.variable)}>
+    <html lang="en" className={cn(hanken.variable, plexMono.variable)}>
       <body className="min-h-screen">
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-60 focus:rounded-md focus:bg-signal focus:px-4 focus:py-2 focus:text-ink"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-80 focus:bg-paper focus:px-4 focus:py-2 focus:text-void"
         >
           Skip to content
         </a>
+        <Preloader />
+        <SmoothScroll />
         {children}
       </body>
     </html>

@@ -1,187 +1,159 @@
 @import "tailwindcss";
 
 @theme {
-  --color-ink: #0e0f11;
-  --color-raised: #17191d;
-  --color-line: #26282d;
-  --color-paper: #f2f1ec;
-  --color-muted: #b4b6bc;
-  --color-signal: #ffd60a;
+  --color-void: #000000;
+  --color-crash: #1322ff;
+  --color-paper: #ffffff;
 
-  /* The same roles on paper sections. Signal never appears there: it fails contrast. */
-  --color-ink-soft: #4b4e55;
-  --color-rule: #d9d7cf;
-
-  --color-byte: #63666e;
+  /* Secondary text and hairlines on black, then the same roles on white. */
+  --color-haze: #a2a2a8;
+  --color-ash: #77777d;
+  --color-line: #2c2c31;
+  --color-smoke: #55555b;
+  --color-rule: #dcdcde;
 }
 
 @theme inline {
-  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-hanken), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-plex-mono), ui-monospace, monospace;
 }
 
 @layer base {
   html {
     color-scheme: dark;
-    scroll-padding-top: 65px;
     overflow-wrap: break-word;
-    @apply bg-ink font-sans text-paper antialiased;
+    @apply bg-void font-sans text-paper antialiased;
+  }
+
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
   }
 
   a,
   button {
     touch-action: manipulation;
-    -webkit-tap-highlight-color: rgb(255 214 10 / 0.2);
-  }
-
-  h1,
-  h2,
-  h3 {
-    font-stretch: 112%;
-    font-weight: 600;
-    letter-spacing: -0.015em;
-    text-wrap: balance;
-  }
-
-  p {
-    text-wrap: pretty;
+    -webkit-tap-highlight-color: rgb(19 34 255 / 0.3);
   }
 
   button {
     cursor: pointer;
   }
 
+  ::selection {
+    @apply bg-crash text-paper;
+  }
+
   :focus-visible {
-    outline: 2px solid var(--color-signal);
+    outline: 2px solid var(--color-paper);
     outline-offset: 3px;
-    border-radius: 2px;
   }
 
   .on-paper :focus-visible {
-    outline-color: var(--color-ink);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  html {
-    scroll-behavior: smooth;
+    outline-color: var(--color-crash);
   }
 }
 
 @layer components {
-  .wrap {
-    @apply mx-auto w-full max-w-[75rem] px-4 sm:px-6 lg:px-8;
+  .gutter {
+    padding-inline: clamp(1rem, 2.2vw, 2.5rem);
   }
 
   .section {
-    @apply py-16 sm:py-20 lg:py-28;
+    padding-block: clamp(5rem, 11vw, 11rem);
   }
 
   .on-paper {
-    @apply bg-paper text-ink;
+    @apply bg-paper text-void;
   }
 
-  .display {
-    font-size: clamp(2.75rem, 1.5rem + 5.6vw, 5.25rem);
+  .type-hero {
+    font-size: clamp(2.5rem, 1.4rem + 4.4vw, 6rem);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.035em;
+  }
+
+  .type-statement {
+    font-size: clamp(2.25rem, 1.2rem + 5.2vw, 7rem);
+    font-weight: 400;
+    line-height: 1.04;
+    letter-spacing: -0.035em;
+  }
+
+  .type-title {
+    font-size: clamp(2rem, 1.2rem + 4.2vw, 5.5rem);
+    font-weight: 400;
     line-height: 1.02;
-    letter-spacing: -0.025em;
+    letter-spacing: -0.03em;
   }
 
-  .heading {
-    font-size: clamp(2rem, 1.6rem + 1.8vw, 3rem);
-    line-height: 1.08;
+  .type-marquee {
+    font-size: clamp(5rem, 2rem + 15vw, 18rem);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+
+  .type-sad {
+    font-size: clamp(9rem, 4rem + 28vw, 30rem);
+    font-weight: 300;
+    line-height: 0.85;
+    letter-spacing: -0.04em;
   }
 
   .btn {
-    @apply inline-flex items-center justify-center rounded-md px-5 py-3 text-[0.9375rem] leading-none font-medium transition-colors duration-150;
+    @apply inline-flex items-center justify-center bg-paper px-6 py-4 text-base leading-none font-medium text-void transition-colors duration-200;
   }
 
-  .btn-sm {
-    @apply px-4 py-2.5 text-sm;
+  .btn:hover {
+    @apply bg-crash text-paper;
   }
 
-  .btn-primary {
-    @apply bg-signal text-ink;
+  .btn-ghost {
+    @apply bg-transparent text-current;
+    box-shadow: inset 0 0 0 1px currentColor;
   }
 
-  .btn-primary:hover {
-    background-color: #ffe14d;
+  .btn-ghost:hover {
+    @apply bg-paper text-void;
+    box-shadow: none;
   }
 
-  .btn-outline {
-    @apply text-paper;
-    box-shadow: inset 0 0 0 1px #4a4d55;
+  .on-paper .btn-ghost:hover {
+    @apply bg-void text-paper;
   }
 
-  .btn-outline:hover {
-    @apply bg-raised;
+  .bg-crash .btn:hover {
+    @apply bg-void text-paper;
   }
 
-  .on-paper .btn-outline {
-    @apply text-ink;
-    box-shadow: inset 0 0 0 1px var(--color-ink);
+  .photo-ink {
+    filter: grayscale(1) contrast(1.1);
   }
 
-  .on-paper .btn-outline:hover {
-    @apply bg-ink text-paper;
+  .preloader {
+    position: fixed;
+    inset: 0;
+    z-index: 70;
+    @apply bg-crash text-paper;
+    /* The page must still appear if the script never runs. */
+    animation: preloader-failsafe 0s linear 4s forwards;
   }
 
-  /* 256 cells, one per possible byte. Zerologon succeeds roughly once in 256
-     attempts, so the cursor tries each cell in turn and stops at 00. */
-  .byte-grid {
-    display: grid;
-    grid-template-columns: repeat(16, minmax(0, 1fr));
-    gap: 2px;
-  }
-
-  .byte {
-    display: grid;
-    place-items: center;
-    height: 0.75rem;
-    border-radius: 2px;
-    background-color: var(--color-raised);
-    color: var(--color-byte);
-    font-family: var(--font-mono);
-    font-size: 0;
-    font-weight: 500;
-  }
-
-  .byte-hit {
-    background-color: var(--color-signal);
-    color: var(--color-ink);
-  }
-
-  @media (min-width: 40rem) {
-    .byte {
-      height: auto;
-      aspect-ratio: 1;
-      font-size: 0.6875rem;
-    }
-  }
-
-  @media (prefers-reduced-motion: no-preference) {
-    .byte-tried {
-      animation: byte-try 400ms ease-out;
-      animation-delay: calc(350ms + var(--i) * 8ms);
-    }
-
-    .byte-hit {
-      animation: byte-hit 200ms ease-out backwards;
-      animation-delay: calc(350ms + var(--i) * 8ms);
+  @media (prefers-reduced-motion: reduce) {
+    .preloader {
+      display: none;
     }
   }
 }
 
-@keyframes byte-try {
-  from {
-    background-color: var(--color-muted);
-    color: var(--color-ink);
-  }
-}
-
-@keyframes byte-hit {
-  from {
-    background-color: var(--color-raised);
-    color: var(--color-byte);
+@keyframes preloader-failsafe {
+  to {
+    visibility: hidden;
   }
 }

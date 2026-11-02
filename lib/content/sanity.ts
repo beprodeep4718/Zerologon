@@ -34,14 +34,15 @@ type SiteDocument = Omit<Site, 'about'> & {
 
 export async function loadSite(): Promise<Site> {
   const site = await query<SiteDocument | null>(/* groq */ `*[_id == "siteSettings"][0]{
-    name, description, college, department, founded, hero, about, focusAreas, peakParticipants,
-    join, email, socials[]{label, url}
+    name, description, college, department, founded, hero, signoff, about, focusAreas,
+    peakParticipants, join, email, socials[]{label, url}
   }`);
 
   if (!site) throw new Error('No site settings found in Sanity. Run the import script first.');
 
   return {
     ...site,
+    signoff: site.signoff ?? '',
     college: site.college ?? '',
     department: site.department ?? '',
     founded: site.founded ?? '',

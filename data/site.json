@@ -7,8 +7,9 @@
   "hero": {
     "headline": "We break things to understand them.",
     "intro": "Zerologon is a student group of hackers, defenders, and researchers. We run CTFs, workshops, and talks on campus.",
-    "gridCaption": "CVE-2020-1472, the bug we’re named after: about one login attempt in 256 succeeds using nothing but zeros."
+    "nameOrigin": "CVE-2020-1472, the bug we’re named after: about one login attempt in 256 succeeds using nothing but zeros."
   },
+  "signoff": "Goodbye, but never logged out.",
   "about": {
     "paragraphs": [
       "Zerologon is the official cybersecurity cell of our college. We’re named after the Windows vulnerability CVE-2020-1472.",

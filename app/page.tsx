@@ -1,6 +1,7 @@
 import Navigation from '@/components/Navigation';
 import Hero from '@/components/Hero';
-import About from '@/components/About';
+import Manifesto from '@/components/Manifesto';
+import Crash from '@/components/Crash';
 import UpcomingEvents from '@/components/UpcomingEvents';
 import Archives from '@/components/Archives';
 import Members from '@/components/Members';
@@ -28,7 +29,7 @@ export default async function Home() {
 
   const nav = [
     { label: 'About', href: '#about' },
-    { label: 'Past events', href: '#events' },
+    { label: 'Events', href: upcoming.length > 0 ? '#upcoming' : '#events' },
     { label: 'Team', href: '#team' },
     { label: 'Gallery', href: '#gallery' },
     ...(joinHref(site) ? [{ label: 'Join', href: '#join' }] : []),
@@ -39,9 +40,10 @@ export default async function Home() {
       <Navigation nav={nav} nextEvent={upcoming[0]} />
       <main id="main">
         <Hero site={site} nextEvent={upcoming[0]} stats={stats} />
-        <About site={site} />
+        <Manifesto site={site} />
+        <Crash nameOrigin={site.hero.nameOrigin} />
         <UpcomingEvents events={upcoming} />
-        <Archives events={past} />
+        <Archives events={past} photos={photos} />
         <Members members={members} />
         <Gallery photos={photos} />
         <Join site={site} />

@@ -70,13 +70,20 @@ export const siteSettings = defineType({
           validation: (rule) => rule.required(),
         }),
         defineField({
-          name: 'gridCaption',
-          title: 'Byte grid caption',
+          name: 'nameOrigin',
+          title: 'Where our name comes from',
           type: 'text',
           rows: 2,
+          description: 'Shown on the blue crash screen.',
           validation: (rule) => rule.required(),
         }),
       ],
+    }),
+    defineField({
+      name: 'signoff',
+      type: 'string',
+      group: 'homepage',
+      description: 'The closing line above the footer.',
     }),
     defineField({
       name: 'about',
@@ -93,6 +100,7 @@ export const siteSettings = defineType({
         defineField({
           name: 'photo',
           type: 'photo',
+          description: 'The full-screen team photo at the top of the homepage.',
           validation: (rule) => rule.required(),
         }),
       ],
