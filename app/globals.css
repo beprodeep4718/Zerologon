@@ -100,6 +100,12 @@
     @apply bg-fg text-bg;
   }
 
+  /* Feedback on press, not on release. */
+  .button:active {
+    transform: scale(0.97);
+    transition-duration: 100ms;
+  }
+
   .inv {
     @apply bg-fg text-bg;
   }
@@ -126,7 +132,20 @@
 
   .grain {
     @apply pointer-events-none fixed inset-0 z-50 opacity-60;
-    background-image: url("/grain.png");
+    background-image: url("/grain.webp");
+  }
+
+  /* Translucent bar: the page scrolls under it instead of being cut off by a solid strip. */
+  .material {
+    background: color-mix(in srgb, var(--bg) 78%, transparent);
+    backdrop-filter: blur(18px) saturate(160%);
+  }
+
+  @media (prefers-reduced-transparency: reduce) {
+    .material {
+      background: var(--bg);
+      backdrop-filter: none;
+    }
   }
 
   .theme-to-dark {
@@ -145,9 +164,23 @@
     display: inline;
   }
 
-  /* Sections ease up as they scroll in. Browsers without this simply show them in place. */
+  /* Held back until GSAP plays them in (components/Motion.tsx). */
+  .motion-pending [data-hero],
+  .motion-pending [data-hero-heading],
+  .motion-pending .rise {
+    visibility: hidden;
+  }
+
+  /* Line masks clip at the line box, which cuts off g, p and y on tight headings.
+     Extend the clip downwards without changing the layout. */
+  .line-mask {
+    padding-bottom: 0.16em;
+    margin-bottom: -0.16em;
+  }
+
   @media (prefers-reduced-motion: no-preference) {
-    html {
+    /* Fallback for anchor jumps until Lenis loads; Lenis needs native smoothing off. */
+    html:not(.lenis) {
       scroll-behavior: smooth;
     }
 
@@ -163,14 +196,6 @@
     .case[open]::details-content {
       height: auto;
     }
-
-    @supports (animation-timeline: view()) {
-      .rise {
-        animation: rise linear both;
-        animation-timeline: view();
-        animation-range: entry 0% entry 35%;
-      }
-    }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -178,11 +203,5 @@
     .log-row {
       transition: none;
     }
-  }
-}
-
-@keyframes rise {
-  from {
-    transform: translateY(28px);
   }
 }

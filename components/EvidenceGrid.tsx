@@ -60,6 +60,8 @@ export default function EvidenceGrid({ photos }: { photos: Exhibit[] }) {
       <dialog
         ref={dialogRef}
         aria-label="Exhibit viewer"
+        // Keep smooth scrolling from moving the page behind the open viewer.
+        data-lenis-prevent=""
         onClose={() => setActive(null)}
         onClick={(e) => {
           // Clicking outside the photo closes the viewer; the photo itself passes clicks
@@ -89,7 +91,8 @@ export default function EvidenceGrid({ photos }: { photos: Exhibit[] }) {
                 src={photos[active].src}
                 alt={photos[active].alt}
                 fill
-                sizes="100vw"
+                // On retina screens 100vw would fetch a 3840px file; 2048px is sharp enough here.
+                sizes="(min-resolution: 2dppx) 1000px, 100vw"
                 className="pointer-events-none object-contain"
               />
             </div>

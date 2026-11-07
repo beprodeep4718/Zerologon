@@ -1,6 +1,7 @@
 import * as local from './local';
 import * as sanity from './sanity';
 import type { ClubEvent, Member, Photo, Site } from './types';
+import { CLUB } from '../seo';
 
 // Content comes from data/*.json until a Sanity project is connected.
 const { loadEvents, loadGallery, loadMembers, loadSite } =
@@ -28,7 +29,11 @@ const initialsOf = (name: string) =>
 
 export async function getSite(): Promise<Site> {
   const site = await loadSite();
-  return { ...site, socials: site.socials.filter((social) => social.url) };
+  return {
+    ...site,
+    college: site.college || CLUB.college,
+    socials: site.socials.filter((social) => social.url),
+  };
 }
 
 // An event moves from upcoming to past on its own once its date has gone by.

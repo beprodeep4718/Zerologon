@@ -1,13 +1,13 @@
 [
-  { "name": "Amrik Hore", "role": "Secretary", "batch": "ECE’27", "image": "/members/amrik_hore.jpeg" },
-  { "name": "Sharthak Ghosh", "role": "Asst. Secretary", "batch": "EE’27", "image": "/members/sharthak_ghosh.jpeg" },
-  { "name": "Sayed Hossain Ansari", "role": "Treasurer", "batch": "CSE’27", "image": "/members/sayed_hossain_ansari.jpeg" },
-  { "name": "Agniva Shee", "role": "Social Media Lead", "batch": "EE’27", "image": "/members/agniva_shee.jpeg" },
-  { "name": "Tiyasa Patra", "role": "Asst. Social Media Lead", "batch": "CSE’28", "image": "/members/tiyasa_patra.jpeg" },
-  { "name": "Suranjana Das", "role": "Asst. Social Media Lead", "batch": "ECE’28", "image": "/members/suranjana_das.jpeg" },
-  { "name": "Dharitri Roy", "role": "Outreach & PR Lead", "batch": "IT’27", "image": "/members/dharitri_roy.jpeg" },
-  { "name": "Sounak Dey", "role": "Asst. PR Lead", "batch": "IT’28", "image": "/members/sounak_dey.jpeg" },
-  { "name": "Aryaneel Das", "role": "CTF Lead", "batch": "ECE’28", "image": "/members/aryaneel_das_.jpeg" },
-  { "name": "Sagnik Ghosh", "role": "CTF Lead", "batch": "CSE’28", "image": "/members/sagnik_ghosh.jpeg" },
-  { "name": "Beprodeep Das", "role": "Web Team", "batch": "ECE’27", "image": "/members/beprodeep_das.jpeg" }
+  { "name": "Amrik Hore", "role": "Secretary", "batch": "ECE’27", "image": "/members/amrik_hore.webp" },
+  { "name": "Sharthak Ghosh", "role": "Asst. Secretary", "batch": "EE’27", "image": "/members/sharthak_ghosh.webp" },
+  { "name": "Sayed Hossain Ansari", "role": "Treasurer", "batch": "CSE’27", "image": "/members/sayed_hossain_ansari.webp" },
+  { "name": "Agniva Shee", "role": "Social Media Lead", "batch": "EE’27", "image": "/members/agniva_shee.webp" },
+  { "name": "Tiyasa Patra", "role": "Asst. Social Media Lead", "batch": "CSE’28", "image": "/members/tiyasa_patra.webp" },
+  { "name": "Suranjana Das", "role": "Asst. Social Media Lead", "batch": "ECE’28", "image": "/members/suranjana_das.webp" },
+  { "name": "Dharitri Roy", "role": "Outreach & PR Lead", "batch": "IT’27", "image": "/members/dharitri_roy.webp" },
+  { "name": "Sounak Dey", "role": "Asst. PR Lead", "batch": "IT’28", "image": "/members/sounak_dey.webp" },
+  { "name": "Aryaneel Das", "role": "CTF Lead", "batch": "ECE’28", "image": "/members/aryaneel_das_.webp" },
+  { "name": "Sagnik Ghosh", "role": "CTF Lead", "batch": "CSE’28", "image": "/members/sagnik_ghosh.webp" },
+  { "name": "Beprodeep Das", "role": "Web Team", "batch": "ECE’27", "image": "/members/beprodeep_das.webp" }
 ]

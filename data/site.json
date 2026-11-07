@@ -1,7 +1,7 @@
 {
   "name": "Zerologon",
-  "description": "Zerologon is a student cybersecurity cell of hackers, defenders, and researchers. We run CTFs, workshops, and talks on campus.",
-  "college": "",
+  "description": "Zerologon is the cyber security cell of Jalpaiguri Government Engineering College (JGEC). We run CTFs, workshops, and talks on campus.",
+  "college": "Jalpaiguri Government Engineering College",
   "department": "Department of Computer Science",
   "founded": "2022",
   "hero": {
@@ -16,7 +16,7 @@
       "We run CTFs, workshops, and talks on campus, and our members work on everything from reverse engineering malware to web exploitation."
     ],
     "photo": {
-      "src": "/Gallery/IMG-20260508-WA0152.jpg",
+      "src": "/Gallery/IMG-20260508-WA0152.webp",
       "alt": "Zerologon team group photo in matching black T-shirts"
     }
   },

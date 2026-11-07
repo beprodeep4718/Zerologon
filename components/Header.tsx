@@ -18,9 +18,14 @@ export default function Header() {
   const closeMenu = () => setIsMenuOpen(false);
 
   return (
-    <header className="sticky top-0 z-40 bg-bg">
+    <header className="material sticky top-0 z-40">
       <div className="wrap relative flex min-h-[76px] items-center justify-between gap-4">
-        <a href="#summary" onClick={closeMenu} translate="no" className="text-xl font-normal">
+        <a href="#summary" onClick={closeMenu} translate="no" className="flex items-center gap-3 text-xl font-normal">
+          {/* The white disc keeps the black gear visible on the dark theme. */}
+          <span className="grid size-11 shrink-0 place-items-center rounded-full bg-white">
+            {/* eslint-disable-next-line @next/next/no-img-element -- a 6 KB static mark needs no optimiser */}
+            <img src="/zerologon-seal.webp" alt="" width={40} height={40} className="size-10" />
+          </span>
           Zerologon
         </a>
 

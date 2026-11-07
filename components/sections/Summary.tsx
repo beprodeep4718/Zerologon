@@ -28,12 +28,12 @@ export default function Summary({
 
       <div className="wrap grid grid-cols-1 items-center gap-10 py-12 md:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] md:py-14">
         <div className="flex flex-col gap-8">
-          <p className="label">Security assessment report, cover page</p>
-          <h1 className="big">{site.hero.headline}</h1>
-          <dl className="border-t border-rule">
+          <p data-hero className="label">Security assessment report, cover page</p>
+          <h1 data-hero-heading className="big">{site.hero.headline}</h1>
+          <dl data-hero className="border-t border-rule">
             <div className="kv">
               <dt className="label">Prepared by</dt>
-              <dd>{site.name}, student cybersecurity cell</dd>
+              <dd>{site.name}, cyber security cell of {site.college}</dd>
             </div>
             <div className="kv">
               <dt className="label">Active since</dt>
@@ -60,7 +60,7 @@ export default function Summary({
             {figures.map((figure) => (
               <div key={figure.label} className="flex flex-col-reverse gap-2.5">
                 <dt className="label">{figure.label}</dt>
-                <dd className="text-7xl leading-none tracking-tight">{figure.value}</dd>
+                <dd data-count className="text-7xl leading-none tracking-tight tabular-nums">{figure.value}</dd>
               </div>
             ))}
           </dl>
